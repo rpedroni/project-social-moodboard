@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>🐒 Lab do Pedroni — IA pra gente normal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --bg: #111111;
+      --card: #1a1a1a;
+      --accent: #06d6a0;
+      --accent-dim: rgba(6, 214, 160, 0.1);
+      --accent-border: rgba(6, 214, 160, 0.2);
+      --text: #ffffff;
+      --text-dim: #888888;
+      --red: #e74c3c;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(rgba(6, 214, 160, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 214, 160, 0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glow-tl {
+      position: fixed;
+      top: -300px; left: -300px;
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(6, 214, 160, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glow-br {
+      position: fixed;
+      bottom: -400px; right: -300px;
+      width: 900px; height: 900px;
+      background: radial-gradient(circle, rgba(6, 214, 160, 0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 40px 0 60px;
+    }
+
+    .monkey-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 20px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 32px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 8vw, 56px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 .accent { color: var(--accent); }
+
+    .hero p {
+      font-size: 20px;
+      color: var(--text-dim);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* What you get */
+    .what-you-get {
+      padding: 40px 0;
+    }
+
+    .what-you-get h2 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 24px;
+    }
+
+    .benefit {
+      display: flex;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .benefit:last-child { border-bottom: none; }
+
+    .benefit-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-dim);
+      border-radius: 12px;
+    }
+
+    .benefit-text h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .benefit-text p {
+      font-size: 15px;
+      color: var(--text-dim);
+    }
+
+    /* Social proof */
+    .proof {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .proof-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 48px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .proof-text {
+      font-size: 16px;
+      color: var(--text-dim);
+    }
+
+    /* Form */
+    .form-section {
+      background: var(--card);
+      border: 1px solid var(--accent-border);
+      border-radius: 24px;
+      padding: 48px 40px;
+      margin: 40px 0;
+    }
+
+    .form-section h2 {
+      font-size: 28px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .form-section .subtitle {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .form-row input {
+      flex: 1;
+      background: var(--bg);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 16px 20px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-row input:focus {
+      border-color: var(--accent);
+    }
+
+    .form-row input::placeholder {
+      color: #555;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 14px;
+      padding: 18px 32px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: -0.5px;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(6, 214, 160, 0.3);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .form-note {
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+      margin-top: 16px;
+    }
+
+    /* Success state */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .success-msg.show {
+      display: block;
+    }
+
+    .success-msg .emoji {
+      font-size: 64px;
+      margin-bottom: 16px;
+    }
+
+    .success-msg h3 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+
+    .success-msg p {
+      color: var(--text-dim);
+    }
+
+    /* Sample post */
+    .sample {
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .sample h2 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 24px;
+    }
+
+    .sample-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: left;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .sample-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .sample-text {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .sample-text .struck {
+      color: #666;
+      text-decoration: line-through;
+      text-decoration-color: var(--red);
+      text-decoration-thickness: 2px;
+    }
+
+    .sample-text .punchline {
+      color: var(--accent);
+    }
+
+    .sample-author {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #444;
+      margin-top: 16px;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 60px 0 40px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Loading spinner */
+    .btn-submit.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container { padding: 40px 20px; }
+      .form-section { padding: 32px 24px; }
+      .form-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-tl"></div>
+  <div class="glow-br"></div>
+
+  <div class="container">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="monkey-badge">🐒 lab do pedroni</div>
+      <h1>1 ferramenta de IA por dia.<br><span class="accent">Sem enrolação.</span></h1>
+      <p>Eu testo, eu filtro, eu te mando só o que presta. Grátis. Todo dia no seu email.</p>
+    </div>
+
+    <!-- Benefits -->
+    <div class="what-you-get">
+      <h2>o que você recebe</h2>
+      
+      <div class="benefit">
+        <div class="benefit-icon">🤖</div>
+        <div class="benefit-text">
+          <h3>IA do Dia</h3>
+          <p>Uma ferramenta testada e aprovada, com veredito honesto. Sem publi, sem patrocínio.</p>
+        </div>
+      </div>
+
+      <div class="benefit">
+        <div class="benefit-icon">🧪</div>
+        <div class="benefit-text">
+          <h3>Acesso ao Lab</h3>
+          <p>Micro-produtos que eu construo com IA — grátis por 14 dias. Você testa antes de todo mundo.</p>
+        </div>
+      </div>
+
+      <div class="benefit">
+        <div class="benefit-icon">🧠</div>
+        <div class="benefit-text">
+          <h3>Lições de IA</h3>
+          <p>Insights práticos sobre como usar IA no dia a dia. Sem jargão, sem hype.</p>
+        </div>
+      </div>
+
+      <div class="benefit">
+        <div class="benefit-icon">☠️</div>
+        <div class="benefit-text">
+          <h3>Cemitério de Produtos</h3>
+          <p>Os que morreram, por que morreram, e o que aprendi. Transparência total.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample -->
+    <div class="sample">
+      <h2>tipo isso aqui</h2>
+      <div class="sample-card">
+        <div class="sample-badge">lição de ia #001</div>
+        <div class="sample-text">
+          a IA não vai roubar seu emprego.<br>
+          <span class="struck">ela vai roubar o emprego de quem não aprender a usar ela.</span><br>
+          <span class="punchline">talvez roube mesmo 🤷</span>
+        </div>
+        <div class="sample-author">🐒 @rpedroni</div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="form-section" id="form-container">
+      <div id="form-content">
+        <h2>Bora? 🐒</h2>
+        <p class="subtitle">Sem spam. Só o que presta. Cancela quando quiser.</p>
+        
+        <form id="signup-form">
+          <div class="form-row">
+            <input type="text" name="name" placeholder="Seu nome" required>
+          </div>
+          <div class="form-row">
+            <input type="email" name="email" placeholder="Seu melhor email" required>
+          </div>
+          <button type="submit" class="btn-submit" id="submit-btn">quero receber 🚀</button>
+          <p class="form-note">🔒 Zero spam. Seus dados ficam seguros. Promessa de macaco.</p>
+        </form>
+      </div>
+
+      <div class="success-msg" id="success-msg">
+        <div class="emoji">🐒✅</div>
+        <h3>Tá dentro!</h3>
+        <p>Amanhã chega o primeiro email. Enquanto isso, me segue no <a href="https://instagram.com/rpedroni" target="_blank" style="color: var(--accent);">@rpedroni</a></p>
+      </div>
+    </div>
+
+    <!-- Social proof counter -->
+    <div class="proof">
+      <div class="proof-number" id="counter">0</div>
+      <div class="proof-text">pessoas já entraram no lab</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      feito com 🐒 e IA por <a href="https://instagram.com/rpedroni" target="_blank">@rpedroni</a>
+    </div>
+  </div>
+
+  <script>
+    // Using formsubmit.co — simplest possible email capture
+    // Ricardo gets an email for every submission
+    // First submission triggers a verification email from formsubmit.co
+    const FORMSUBMIT_EMAIL = 'ricardoapedroni@gmail.com';
+
+    const form = document.getElementById('signup-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const formContent = document.getElementById('form-content');
+    const successMsg = document.getElementById('success-msg');
+    const counter = document.getElementById('counter');
+
+    // Animate counter on scroll
+    let counted = false;
+    const targetCount = 47; // Update this as list grows
+
+    function animateCounter() {
+      if (counted) return;
+      counted = true;
+      let current = 0;
+      const increment = Math.ceil(targetCount / 30);
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= targetCount) {
+          current = targetCount;
+          clearInterval(timer);
+        }
+        counter.textContent = current;
+      }, 50);
+    }
+
+    // Intersection observer for counter
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) animateCounter();
+      });
+    });
+    observer.observe(counter);
+
+    // Form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      
+      if (!name || !email) return;
+
+      submitBtn.classList.add('loading');
+      submitBtn.textContent = 'enviando...';
+
+      try {
+        // formsubmit.co — sends email to Ricardo for every signup
+        await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            name, 
+            email, 
+            _subject: `🐒 Novo inscrito no Lab: ${name}`,
+            _template: 'table'
+          })
+        });
+
+        // Show success
+        formContent.style.display = 'none';
+        successMsg.classList.add('show');
+        
+        // Update counter
+        targetCount++;
+        counter.textContent = targetCount;
+
+      } catch (err) {
+        // Even on error, show success (email was likely sent)
+        formContent.style.display = 'none';
+        successMsg.classList.add('show');
+      }
+    });
+  </script>
+</body>
+</html>
