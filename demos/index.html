@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pato Builder — Animação Demo (Three.js + anime.js)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; overflow: hidden; font-family: 'Courier New', monospace; }
+
+/* Three.js canvas */
+#scene { position: fixed; top: 0; left: 0; z-index: 0; }
+
+/* Overlay UI animated with anime.js */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 72px;
+  font-weight: bold;
+  font-family: system-ui, sans-serif;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(40px);
+}
+.title span { color: #ffd700; }
+
+.subtitle {
+  font-size: 24px;
+  color: #888;
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.badge {
+  font-size: 14px;
+  color: #ffd700;
+  letter-spacing: 4px;
+  margin-bottom: 30px;
+  opacity: 0;
+}
+
+.stat-row {
+  display: flex;
+  gap: 60px;
+  margin-top: 60px;
+}
+.stat {
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.5);
+}
+.stat-num {
+  font-size: 48px;
+  color: #ffd700;
+  font-weight: bold;
+  font-family: system-ui, sans-serif;
+}
+.stat-label {
+  font-size: 12px;
+  color: #666;
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+
+.cta-btn {
+  margin-top: 50px;
+  padding: 16px 40px;
+  background: #ffd700;
+  color: #0a0a0a;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: system-ui, sans-serif;
+  border: none;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Floating particles */
+.particle {
+  position: fixed;
+  width: 4px; height: 4px;
+  background: #ffd700;
+  opacity: 0;
+  z-index: 2;
+}
+
+/* Controls */
+.controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 12px;
+  pointer-events: all;
+}
+.controls button {
+  padding: 8px 20px;
+  background: #1a1a1a;
+  color: #ffd700;
+  border: 1px solid #333;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  cursor: pointer;
+}
+.controls button:hover { background: #ffd700; color: #0a0a0a; }
+</style>
+</head>
+<body>
+
+<canvas id="scene"></canvas>
+
+<div class="overlay">
+  <div class="badge">🦆 PATO BUILDER</div>
+  <div class="title">a IA não vai<br><span>roubar</span> seu emprego.</div>
+  <div class="subtitle">mas quem souber usar vai roubar o seu lugar.</div>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-num" data-value="47">0</div><div class="stat-label">LIÇÕES</div></div>
+    <div class="stat"><div class="stat-num" data-value="156">0</div><div class="stat-label">IAs REVISADAS</div></div>
+    <div class="stat"><div class="stat-num" data-value="23">0</div><div class="stat-label">SUNSETS</div></div>
+  </div>
+  <button class="cta-btn">ver lições 🦆</button>
+</div>
+
+<div class="controls">
+  <button onclick="playIntro()">▶ Intro</button>
+  <button onclick="playStats()">📊 Stats</button>
+  <button onclick="playShake()">💥 Shake</button>
+  <button onclick="playAll()">🎬 Full Sequence</button>
+</div>
+
+<!-- Particles -->
+<div class="particle" style="top:10%;left:20%"></div>
+<div class="particle" style="top:30%;left:80%"></div>
+<div class="particle" style="top:60%;left:15%"></div>
+<div class="particle" style="top:80%;left:75%"></div>
+<div class="particle" style="top:20%;left:60%"></div>
+<div class="particle" style="top:70%;left:40%"></div>
+<div class="particle" style="top:45%;left:90%"></div>
+<div class="particle" style="top:85%;left:50%"></div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.164.0/build/three.module.js"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+// ==========================================
+// THREE.JS — Animated 3D background
+// ==========================================
+const canvas = document.getElementById('scene');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.z = 30;
+
+// Grid of cubes — like pixels floating
+const cubes = [];
+const gridSize = 12;
+const spacing = 3;
+const group = new THREE.Group();
+
+for (let x = -gridSize/2; x < gridSize/2; x++) {
+  for (let y = -gridSize/2; y < gridSize/2; y++) {
+    const geo = new THREE.BoxGeometry(0.8, 0.8, 0.8);
+    const mat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color('#ffd700'),
+      emissive: new THREE.Color('#ffd700'),
+      emissiveIntensity: 0.1,
+      metalness: 0.3,
+      roughness: 0.7,
+    });
+    const cube = new THREE.Mesh(geo, mat);
+    cube.position.set(x * spacing, y * spacing, Math.random() * 4 - 2);
+    cube.userData = { 
+      baseY: y * spacing,
+      baseX: x * spacing,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.3 + Math.random() * 0.5
+    };
+    // Vary opacity by distance from center
+    const dist = Math.sqrt(x*x + y*y);
+    mat.opacity = Math.max(0.05, 0.4 - dist * 0.03);
+    mat.transparent = true;
+    group.add(cube);
+    cubes.push(cube);
+  }
+}
+scene.add(group);
+
+// Lights
+const ambient = new THREE.AmbientLight(0xffffff, 0.3);
+scene.add(ambient);
+const point = new THREE.PointLight(0xffd700, 2, 50);
+point.position.set(0, 0, 15);
+scene.add(point);
+
+// Animation loop
+let time = 0;
+function animate() {
+  requestAnimationFrame(animate);
+  time += 0.01;
+  
+  cubes.forEach(cube => {
+    const d = cube.userData;
+    // Gentle wave motion
+    cube.position.y = d.baseY + Math.sin(time * d.speed + d.phase) * 0.5;
+    cube.position.z = Math.sin(time * 0.5 + d.phase) * 1.5;
+    cube.rotation.x = time * 0.2 + d.phase;
+    cube.rotation.y = time * 0.15 + d.phase;
+  });
+  
+  // Slow group rotation
+  group.rotation.z = Math.sin(time * 0.3) * 0.05;
+  group.rotation.x = Math.sin(time * 0.2) * 0.03;
+  
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Expose for shake effect
+window.__cubes = cubes;
+window.__group = group;
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+<script>
+// ==========================================
+// ANIME.JS — UI animations
+// ==========================================
+
+function resetAll() {
+  anime.set('.badge', { opacity: 0 });
+  anime.set('.title', { opacity: 0, translateY: 40 });
+  anime.set('.subtitle', { opacity: 0, translateY: 20 });
+  anime.set('.stat', { opacity: 0, scale: 0.5 });
+  anime.set('.cta-btn', { opacity: 0, translateY: 20 });
+  anime.set('.particle', { opacity: 0, scale: 0 });
+  document.querySelectorAll('.stat-num').forEach(el => el.textContent = '0');
+}
+
+// 1. Intro — text entrance
+function playIntro() {
+  resetAll();
+  
+  const tl = anime.timeline({ easing: 'easeOutExpo' });
+  
+  // Particles float in
+  tl.add({
+    targets: '.particle',
+    opacity: [0, 0.6],
+    scale: [0, 1],
+    duration: 800,
+    delay: anime.stagger(100),
+  })
+  // Badge
+  .add({
+    targets: '.badge',
+    opacity: [0, 1],
+    duration: 600,
+    easing: 'easeOutQuad',
+  }, '-=400')
+  // Title slides up
+  .add({
+    targets: '.title',
+    opacity: [0, 1],
+    translateY: [40, 0],
+    duration: 1000,
+  }, '-=200')
+  // Subtitle
+  .add({
+    targets: '.subtitle',
+    opacity: [0, 1],
+    translateY: [20, 0],
+    duration: 800,
+  }, '-=600')
+  // Particles float continuously
+  .add({
+    targets: '.particle',
+    translateY: () => anime.random(-30, 30),
+    translateX: () => anime.random(-20, 20),
+    duration: 3000,
+    easing: 'easeInOutSine',
+    direction: 'alternate',
+    loop: true,
+  }, '-=800');
+}
+
+// 2. Stats — counter animation
+function playStats() {
+  anime.set('.stat', { opacity: 0, scale: 0.5 });
+  
+  const tl = anime.timeline({ easing: 'easeOutExpo' });
+  
+  tl.add({
+    targets: '.stat',
+    opacity: [0, 1],
+    scale: [0.5, 1],
+    duration: 600,
+    delay: anime.stagger(200),
+  });
+  
+  // Count up numbers
+  document.querySelectorAll('.stat-num').forEach((el, i) => {
+    const target = parseInt(el.dataset.value);
+    anime({
+      targets: { val: 0 },
+      val: target,
+      duration: 1500,
+      delay: 200 + i * 200,
+      easing: 'easeOutExpo',
+      round: 1,
+      update: (anim) => {
+        el.textContent = Math.round(anim.animations[0].currentValue);
+      }
+    });
+  });
+}
+
+// 3. Shake — impact effect (for emphasis moments)
+function playShake() {
+  // Shake the title
+  anime({
+    targets: '.title',
+    translateX: [0, -10, 10, -8, 8, -4, 4, 0],
+    duration: 600,
+    easing: 'easeInOutQuad',
+  });
+  
+  // Flash the yellow word
+  anime({
+    targets: '.title span',
+    color: ['#ffd700', '#ff4444', '#ffd700'],
+    textShadow: ['0 0 0px #ffd700', '0 0 30px #ff4444', '0 0 0px #ffd700'],
+    duration: 600,
+    easing: 'easeInOutQuad',
+  });
+  
+  // Shake 3D cubes
+  if (window.__group) {
+    anime({
+      targets: window.__group.rotation,
+      z: [window.__group.rotation.z, window.__group.rotation.z + 0.1, window.__group.rotation.z - 0.1, window.__group.rotation.z],
+      duration: 500,
+      easing: 'easeInOutQuad',
+    });
+  }
+  
+  // Flash particles
+  anime({
+    targets: '.particle',
+    opacity: [0.6, 1, 0.6],
+    scale: [1, 2, 1],
+    duration: 400,
+    easing: 'easeInOutQuad',
+  });
+}
+
+// 4. Full sequence — like a video intro
+function playAll() {
+  resetAll();
+  
+  const tl = anime.timeline({ easing: 'easeOutExpo' });
+  
+  // Act 1: particles + badge
+  tl.add({
+    targets: '.particle',
+    opacity: [0, 0.6],
+    scale: [0, 1],
+    duration: 600,
+    delay: anime.stagger(80),
+  })
+  .add({
+    targets: '.badge',
+    opacity: [0, 1],
+    letterSpacing: ['10px', '4px'],
+    duration: 800,
+  }, 400)
+  
+  // Act 2: title with impact
+  .add({
+    targets: '.title',
+    opacity: [0, 1],
+    translateY: [60, 0],
+    duration: 1200,
+  }, 1000)
+  .add({
+    targets: '.title span',
+    color: ['#ffffff', '#ffd700'],
+    textShadow: ['0 0 0px transparent', '0 0 20px rgba(255,215,0,0.3)'],
+    duration: 800,
+  }, 1800)
+  
+  // Act 3: subtitle
+  .add({
+    targets: '.subtitle',
+    opacity: [0, 0.8],
+    translateY: [20, 0],
+    duration: 800,
+  }, 2200)
+  
+  // Act 4: stats count up
+  .add({
+    targets: '.stat',
+    opacity: [0, 1],
+    scale: [0.5, 1],
+    translateY: [20, 0],
+    duration: 600,
+    delay: anime.stagger(150),
+  }, 3000)
+  
+  // Act 5: CTA
+  .add({
+    targets: '.cta-btn',
+    opacity: [0, 1],
+    translateY: [20, 0],
+    duration: 600,
+  }, 4000)
+  
+  // Floating particles loop
+  .add({
+    targets: '.particle',
+    translateY: () => anime.random(-30, 30),
+    translateX: () => anime.random(-20, 20),
+    duration: 3000,
+    easing: 'easeInOutSine',
+    direction: 'alternate',
+    loop: true,
+  }, 1500);
+  
+  // Count up numbers at Act 4
+  setTimeout(() => {
+    document.querySelectorAll('.stat-num').forEach((el, i) => {
+      const target = parseInt(el.dataset.value);
+      anime({
+        targets: { val: 0 },
+        val: target,
+        duration: 2000,
+        delay: i * 150,
+        easing: 'easeOutExpo',
+        round: 1,
+        update: (anim) => {
+          el.textContent = Math.round(anim.animations[0].currentValue);
+        }
+      });
+    });
+  }, 3000);
+}
+
+// Auto-play on load
+setTimeout(playAll, 500);
+</script>
+
+</body>
+</html>
