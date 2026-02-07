@@ -1,0 +1,15 @@
+🔥 Hot Take #002
+
+Devs que usam IA passivamente sabem 17% MENOS que devs que não usam.
+
+Não é a IA que é o problema — é como você usa.
+
+Estudo real da Anthropic (Jan 2026) com 52 devs: quem usou IA pra copiar e colar teve performance pior em debugging e compreensão de código.
+
+Mas quem usou pra PERGUNTAR "por quê?" manteve o mesmo nível.
+
+A diferença: IA como muleta vs IA como professor.
+
+Qual dos dois você é? 🤔
+
+#IA #Programação #Dev #Coding #HotTake
