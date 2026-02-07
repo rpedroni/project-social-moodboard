@@ -4,549 +4,546 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>🐒 Lab do Pedroni — IA pra gente normal</title>
+  <title>DuckLabs 🦆 — IA explicada por quem constrói com ela</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DM+Sans:wght@400;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     
-    :root {
-      --bg: #111111;
-      --card: #1a1a1a;
-      --accent: #06d6a0;
-      --accent-dim: rgba(6, 214, 160, 0.1);
-      --accent-border: rgba(6, 214, 160, 0.2);
-      --text: #ffffff;
-      --text-dim: #888888;
-      --red: #e74c3c;
-    }
-
-    html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'DM Sans', -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background: #0a0a0a;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
       line-height: 1.6;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
     }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-image: 
-        linear-gradient(rgba(6, 214, 160, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(6, 214, 160, 0.02) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
+    
+    /* Pixel Duck */
+    .duck-pixel {
+      width: 1px;
+      height: 1px;
+      position: absolute;
+      transform-origin: top left;
+      box-shadow:
+        4px 0 #ffd700, 5px 0 #ffd700, 6px 0 #ffd700,
+        3px 1px #ffd700, 4px 1px #ffd700, 5px 1px #ffd700, 6px 1px #ffd700, 7px 1px #ffd700,
+        3px 2px #ffd700, 4px 2px #ffd700, 5px 2px #111111, 6px 2px #ffd700, 7px 2px #ffd700,
+        3px 3px #ffd700, 4px 3px #ffd700, 5px 3px #ffd700, 6px 3px #ffd700, 7px 3px #ffd700, 8px 3px #ff8c00, 9px 3px #ff8c00,
+        3px 4px #ffd700, 4px 4px #ffd700, 5px 4px #ffd700, 6px 4px #ffd700,
+        0px 5px #ffd700, 1px 5px #ffd700, 2px 5px #ffd700, 3px 5px #ffd700, 4px 5px #ffd700, 5px 5px #ffd700, 6px 5px #ffd700, 7px 5px #ffd700,
+        0px 6px #ffd700, 1px 6px #ffd700, 2px 6px #ffc800, 3px 6px #ffc800, 4px 6px #ffc800, 5px 6px #ffc800, 6px 6px #ffd700, 7px 6px #ffd700, 8px 6px #ffd700,
+        0px 7px #ffd700, 1px 7px #ffc800, 2px 7px #ffc800, 3px 7px #ffc800, 4px 7px #ffc800, 5px 7px #ffc800, 6px 7px #ffc800, 7px 7px #ffd700, 8px 7px #ffd700,
+        1px 8px #ffd700, 2px 8px #ffd700, 3px 8px #ffd700, 4px 8px #ffd700, 5px 8px #ffd700, 6px 8px #ffd700, 7px 8px #ffd700,
+        2px 9px #ff8c00, 3px 9px #ff8c00, 5px 9px #ff8c00, 6px 9px #ff8c00;
     }
-
-    .glow-tl {
-      position: fixed;
-      top: -300px; left: -300px;
-      width: 800px; height: 800px;
-      background: radial-gradient(circle, rgba(6, 214, 160, 0.06) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .glow-br {
-      position: fixed;
-      bottom: -400px; right: -300px;
-      width: 900px; height: 900px;
-      background: radial-gradient(circle, rgba(6, 214, 160, 0.04) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .container {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 60px 24px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 40px 0 60px;
-    }
-
-    .monkey-badge {
-      display: inline-flex;
+    
+    /* Navigation */
+    nav {
+      padding: 2rem;
+      display: flex;
       align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: var(--bg);
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 600;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .nav-logo .duck-pixel {
+      position: relative;
+      transform: scale(3);
+      margin-right: 20px;
+    }
+    
+    .nav-logo-text {
+      font-family: 'Press Start 2P', monospace;
       font-size: 14px;
-      padding: 8px 20px;
-      border-radius: 100px;
-      text-transform: uppercase;
+      color: #ffd700;
       letter-spacing: 2px;
-      margin-bottom: 32px;
     }
-
-    .hero h1 {
-      font-size: clamp(36px, 8vw, 56px);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -2px;
-      margin-bottom: 24px;
-    }
-
-    .hero h1 .accent { color: var(--accent); }
-
-    .hero p {
-      font-size: 20px;
-      color: var(--text-dim);
-      max-width: 500px;
-      margin: 0 auto;
-      line-height: 1.5;
-    }
-
-    /* What you get */
-    .what-you-get {
-      padding: 40px 0;
-    }
-
-    .what-you-get h2 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-bottom: 24px;
-    }
-
-    .benefit {
-      display: flex;
-      gap: 16px;
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .benefit:last-child { border-bottom: none; }
-
-    .benefit-icon {
-      font-size: 28px;
-      flex-shrink: 0;
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--accent-dim);
-      border-radius: 12px;
-    }
-
-    .benefit-text h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .benefit-text p {
-      font-size: 15px;
-      color: var(--text-dim);
-    }
-
-    /* Social proof */
-    .proof {
-      text-align: center;
-      padding: 40px 0;
-    }
-
-    .proof-number {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 48px;
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    .proof-text {
-      font-size: 16px;
-      color: var(--text-dim);
-    }
-
-    /* Form */
-    .form-section {
-      background: var(--card);
-      border: 1px solid var(--accent-border);
-      border-radius: 24px;
-      padding: 48px 40px;
-      margin: 40px 0;
-    }
-
-    .form-section h2 {
-      font-size: 28px;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 8px;
-    }
-
-    .form-section .subtitle {
-      text-align: center;
-      color: var(--text-dim);
-      font-size: 16px;
-      margin-bottom: 32px;
-    }
-
-    .form-row {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .form-row input {
-      flex: 1;
-      background: var(--bg);
-      border: 2px solid rgba(255,255,255,0.1);
-      border-radius: 14px;
-      padding: 16px 20px;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .form-row input:focus {
-      border-color: var(--accent);
-    }
-
-    .form-row input::placeholder {
-      color: #555;
-    }
-
-    .btn-submit {
-      width: 100%;
-      background: var(--accent);
-      color: var(--bg);
+    
+    .nav-cta {
+      background: #ffd700;
+      color: #0a0a0a;
+      padding: 0.75rem 1.5rem;
       border: none;
-      border-radius: 14px;
-      padding: 18px 32px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 18px;
       font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      letter-spacing: -0.5px;
-    }
-
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(6, 214, 160, 0.3);
-    }
-
-    .btn-submit:active {
-      transform: translateY(0);
-    }
-
-    .form-note {
-      text-align: center;
-      font-size: 13px;
-      color: #555;
-      margin-top: 16px;
-    }
-
-    /* Success state */
-    .success-msg {
-      display: none;
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .success-msg.show {
-      display: block;
-    }
-
-    .success-msg .emoji {
-      font-size: 64px;
-      margin-bottom: 16px;
-    }
-
-    .success-msg h3 {
-      font-size: 24px;
-      margin-bottom: 8px;
-      color: var(--accent);
-    }
-
-    .success-msg p {
-      color: var(--text-dim);
-    }
-
-    /* Sample post */
-    .sample {
-      padding: 40px 0;
-      text-align: center;
-    }
-
-    .sample h2 {
-      font-family: 'JetBrains Mono', monospace;
       font-size: 14px;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-bottom: 24px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.3s;
     }
-
-    .sample-card {
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 16px;
-      padding: 40px;
-      text-align: left;
-      max-width: 500px;
+    
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 4rem 2rem;
+      max-width: 800px;
       margin: 0 auto;
+      text-align: center;
     }
-
-    .sample-badge {
+    
+    .hero-duck {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+    
+    .hero-duck .duck-pixel {
+      position: relative;
+      transform: scale(25);
+      display: inline-block;
+    }
+    
+    .hero h1 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 36px;
+      color: #ffd700;
+      margin-bottom: 1.5rem;
+      letter-spacing: 2px;
+      line-height: 1.4;
+    }
+    
+    .hero-tagline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 3rem;
+    }
+    
+    .email-capture {
+      max-width: 500px;
+      margin: 0 auto 1rem;
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .email-input {
+      flex: 1;
+      padding: 1rem;
+      background: #141414;
+      border: 1px solid #1a1a1a;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      border-radius: 4px;
+      transition: border-color 0.3s;
+    }
+    
+    .email-input:focus {
+      outline: none;
+      border-color: #ffd700;
+    }
+    
+    .btn-primary {
+      background: #ffd700;
+      color: #0a0a0a;
+      padding: 1rem 2rem;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
+    
+    .hero-social-proof {
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 16px;
+      color: #666666;
     }
-
-    .sample-text {
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 1.4;
-      margin-bottom: 12px;
+    
+    /* What You Get Section */
+    .features {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-top: 1px solid #1a1a1a;
     }
-
-    .sample-text .struck {
-      color: #666;
-      text-decoration: line-through;
-      text-decoration-color: var(--red);
-      text-decoration-thickness: 2px;
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
     }
-
-    .sample-text .punchline {
-      color: var(--accent);
-    }
-
-    .sample-author {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      color: #444;
-      margin-top: 16px;
-    }
-
-    /* Footer */
-    .footer {
+    
+    .feature {
       text-align: center;
-      padding: 60px 0 40px;
-      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    .feature-emoji {
+      font-size: 48px;
+      margin-bottom: 1rem;
+    }
+    
+    .feature h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 0.75rem;
+      color: #ffd700;
+    }
+    
+    .feature p {
+      color: #999999;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    
+    /* Content Preview Section */
+    .content-preview {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-top: 1px solid #1a1a1a;
+    }
+    
+    .section-title {
+      font-family: 'Press Start 2P', monospace;
       font-size: 14px;
-      color: #333;
+      color: #ffd700;
+      text-align: center;
+      margin-bottom: 3rem;
+      letter-spacing: 2px;
     }
-
-    .footer a {
-      color: var(--accent);
+    
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+    
+    .card {
+      background: #141414;
+      border: 1px solid #1a1a1a;
+      border-radius: 8px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ffd700, #ff8c00);
+    }
+    
+    .card:hover {
+      border-color: #ffd700;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+    }
+    
+    .card-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #ffd700;
+      border: 1px solid #333;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    
+    .card-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+    }
+    
+    .card-description {
+      font-size: 14px;
+      color: #999999;
+      line-height: 1.6;
+    }
+    
+    /* About Section */
+    .about {
+      padding: 6rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      border-top: 1px solid #1a1a1a;
+      text-align: center;
+    }
+    
+    .about h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 18px;
+      color: #ffd700;
+      margin-bottom: 2rem;
+      letter-spacing: 2px;
+    }
+    
+    .about p {
+      font-size: 18px;
+      color: #999999;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    
+    .about-quote {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: #ffd700;
+      margin-top: 2rem;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      padding: 6rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      border-top: 1px solid #1a1a1a;
+      text-align: center;
+    }
+    
+    .cta-section h2 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 900;
+      font-size: 32px;
+      color: #ffffff;
+      margin-bottom: 2rem;
+    }
+    
+    /* Footer */
+    footer {
+      border-top: 1px solid #1a1a1a;
+      padding: 3rem 2rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 14px;
+      color: #666666;
+    }
+    
+    .footer-brand .duck-pixel {
+      position: relative;
+      transform: scale(2);
+      margin-right: 10px;
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .footer-social a {
+      color: #666666;
       text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s;
     }
-
-    /* Loading spinner */
-    .btn-submit.loading {
-      opacity: 0.7;
-      pointer-events: none;
+    
+    .footer-social a:hover {
+      color: #ffd700;
     }
-
+    
+    .footer-tagline {
+      text-align: center;
+      color: #666666;
+      font-size: 12px;
+      margin-top: 2rem;
+    }
+    
     /* Responsive */
-    @media (max-width: 600px) {
-      .container { padding: 40px 20px; }
-      .form-section { padding: 32px 24px; }
-      .form-row { flex-direction: column; }
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .hero h1 {
+        font-size: 24px;
+      }
+      
+      .hero-tagline {
+        font-size: 18px;
+      }
+      
+      .hero-duck .duck-pixel {
+        transform: scale(18);
+      }
+      
+      .email-capture {
+        flex-direction: column;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="glow-tl"></div>
-  <div class="glow-br"></div>
-
-  <div class="container">
-    <!-- Hero -->
-    <div class="hero">
-      <div class="monkey-badge">🐒 lab do pedroni</div>
-      <h1>1 ferramenta de IA por dia.<br><span class="accent">Sem enrolação.</span></h1>
-      <p>Eu testo, eu filtro, eu te mando só o que presta. Grátis. Todo dia no seu email.</p>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-logo">
+      <div class="duck-pixel"></div>
+      <span class="nav-logo-text">DUCKLABS</span>
     </div>
-
-    <!-- Benefits -->
-    <div class="what-you-get">
-      <h2>o que você recebe</h2>
+    <button class="nav-cta">Seguir 🦆</button>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-duck">
+      <div class="duck-pixel"></div>
+    </div>
+    <h1>DUCKLABS</h1>
+    <p class="hero-tagline">IA explicada por quem constrói com ela.</p>
+    
+    <form class="email-capture">
+      <input type="email" class="email-input" placeholder="seu@email.com" required>
+      <button type="submit" class="btn-primary">Receber lições 🦆</button>
+    </form>
+    
+    <p class="hero-social-proof">12.400+ builders já recebem toda semana.</p>
+  </section>
+  
+  <!-- What You Get Section -->
+  <section class="features">
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-emoji">📚</div>
+        <h3>Lições semanais de IA</h3>
+        <p>Direto ao ponto. Sem enrolação.</p>
+      </div>
       
-      <div class="benefit">
-        <div class="benefit-icon">🤖</div>
-        <div class="benefit-text">
-          <h3>IA do Dia</h3>
-          <p>Uma ferramenta testada e aprovada, com veredito honesto. Sem publi, sem patrocínio.</p>
-        </div>
+      <div class="feature">
+        <div class="feature-emoji">🔍</div>
+        <h3>Reviews honestos</h3>
+        <p>Testado de verdade, não demo.</p>
       </div>
-
-      <div class="benefit">
-        <div class="benefit-icon">🧪</div>
-        <div class="benefit-text">
-          <h3>Acesso ao Lab</h3>
-          <p>Micro-produtos que eu construo com IA — grátis por 14 dias. Você testa antes de todo mundo.</p>
-        </div>
-      </div>
-
-      <div class="benefit">
-        <div class="benefit-icon">🧠</div>
-        <div class="benefit-text">
-          <h3>Lições de IA</h3>
-          <p>Insights práticos sobre como usar IA no dia a dia. Sem jargão, sem hype.</p>
-        </div>
-      </div>
-
-      <div class="benefit">
-        <div class="benefit-icon">☠️</div>
-        <div class="benefit-text">
-          <h3>Cemitério de Produtos</h3>
-          <p>Os que morreram, por que morreram, e o que aprendi. Transparência total.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sample -->
-    <div class="sample">
-      <h2>tipo isso aqui</h2>
-      <div class="sample-card">
-        <div class="sample-badge">lição de ia #001</div>
-        <div class="sample-text">
-          a IA não vai roubar seu emprego.<br>
-          <span class="struck">ela vai roubar o emprego de quem não aprender a usar ela.</span><br>
-          <span class="punchline">talvez roube mesmo 🤷</span>
-        </div>
-        <div class="sample-author">🐒 @rpedroni</div>
-      </div>
-    </div>
-
-    <!-- Form -->
-    <div class="form-section" id="form-container">
-      <div id="form-content">
-        <h2>Bora? 🐒</h2>
-        <p class="subtitle">Sem spam. Só o que presta. Cancela quando quiser.</p>
-        
-        <form id="signup-form">
-          <div class="form-row">
-            <input type="text" name="name" placeholder="Seu nome" required>
-          </div>
-          <div class="form-row">
-            <input type="email" name="email" placeholder="Seu melhor email" required>
-          </div>
-          <button type="submit" class="btn-submit" id="submit-btn">quero receber 🚀</button>
-          <p class="form-note">🔒 Zero spam. Seus dados ficam seguros. Promessa de macaco.</p>
-        </form>
-      </div>
-
-      <div class="success-msg" id="success-msg">
-        <div class="emoji">🐒✅</div>
-        <h3>Tá dentro!</h3>
-        <p>Amanhã chega o primeiro email. Enquanto isso, me segue no <a href="https://instagram.com/rpedroni" target="_blank" style="color: var(--accent);">@rpedroni</a></p>
-      </div>
-    </div>
-
-    <!-- Social proof counter -->
-    <div class="proof">
-      <div class="proof-number" id="counter">0</div>
-      <div class="proof-text">pessoas já entraram no lab</div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      feito com 🐒 e IA por <a href="https://instagram.com/rpedroni" target="_blank">@rpedroni</a>
-    </div>
-  </div>
-
-  <script>
-    // Using formsubmit.co — simplest possible email capture
-    // Ricardo gets an email for every submission
-    // First submission triggers a verification email from formsubmit.co
-    const FORMSUBMIT_EMAIL = 'ricardoapedroni@gmail.com';
-
-    const form = document.getElementById('signup-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const formContent = document.getElementById('form-content');
-    const successMsg = document.getElementById('success-msg');
-    const counter = document.getElementById('counter');
-
-    // Animate counter on scroll
-    let counted = false;
-    const targetCount = 47; // Update this as list grows
-
-    function animateCounter() {
-      if (counted) return;
-      counted = true;
-      let current = 0;
-      const increment = Math.ceil(targetCount / 30);
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= targetCount) {
-          current = targetCount;
-          clearInterval(timer);
-        }
-        counter.textContent = current;
-      }, 50);
-    }
-
-    // Intersection observer for counter
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) animateCounter();
-      });
-    });
-    observer.observe(counter);
-
-    // Form submission
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
       
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
+      <div class="feature">
+        <div class="feature-emoji">🧪</div>
+        <h3>Experimentos ao vivo</h3>
+        <p>O que funciona e o que explode.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Content Preview Section -->
+  <section class="content-preview">
+    <h2 class="section-title">📌 ÚLTIMAS PUBLICAÇÕES</h2>
+    <div class="preview-grid">
+      <div class="card">
+        <span class="card-tag">LIÇÃO DE IA</span>
+        <h3 class="card-title">Por que IA não substitui você (ainda)</h3>
+        <p class="card-description">
+          A maioria das ferramentas de IA são só autocomplete glorificado. 
+          O verdadeiro valor está em saber quando NÃO usar IA.
+        </p>
+      </div>
       
-      if (!name || !email) return;
-
-      submitBtn.classList.add('loading');
-      submitBtn.textContent = 'enviando...';
-
-      try {
-        // formsubmit.co — sends email to Ricardo for every signup
-        await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            name, 
-            email, 
-            _subject: `🐒 Novo inscrito no Lab: ${name}`,
-            _template: 'table'
-          })
-        });
-
-        // Show success
-        formContent.style.display = 'none';
-        successMsg.classList.add('show');
-        
-        // Update counter
-        targetCount++;
-        counter.textContent = targetCount;
-
-      } catch (err) {
-        // Even on error, show success (email was likely sent)
-        formContent.style.display = 'none';
-        successMsg.classList.add('show');
-      }
-    });
-  </script>
+      <div class="card">
+        <span class="card-tag">IA DO DIA</span>
+        <h3 class="card-title">Claude vs GPT-4: Veredito</h3>
+        <p class="card-description">
+          Testei os dois durante 30 dias em tarefas reais de desenvolvimento. 
+          Os resultados podem te surpreender.
+        </p>
+      </div>
+      
+      <div class="card">
+        <span class="card-tag">SUNSET</span>
+        <h3 class="card-title">RIP Google Bard (2023-2024)</h3>
+        <p class="card-description">
+          Mais uma ferramenta que o Google abandonou. 
+          Aqui está por que ela nunca teve chance de competir.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section class="about">
+    <h2>QUEM É O PATO?</h2>
+    <p>
+      Ricardo é CTO com 20 anos em tech. Construiu sistemas usados por milhões. 
+      Agora ensina builders a usar IA de verdade — não só brincar com demos.
+    </p>
+    <p class="about-quote">
+      "O pato não fala bonito. O pato testa, constrói e conta a verdade."
+    </p>
+  </section>
+  
+  <!-- Final CTA Section -->
+  <section class="cta-section">
+    <h2>Pronto pra aprender IA com quem usa de verdade?</h2>
+    <form class="email-capture">
+      <input type="email" class="email-input" placeholder="seu@email.com" required>
+      <button type="submit" class="btn-primary">Receber lições 🦆</button>
+    </form>
+    <p class="hero-social-proof">Sem spam. Só conteúdo de valor. Toda semana.</p>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="duck-pixel"></div>
+        <span>© 2026 DuckLabs · @rpedroni</span>
+      </div>
+      <div class="footer-social">
+        <a href="https://instagram.com/rpedroni" target="_blank">Instagram</a>
+        <a href="https://youtube.com/@rpedroni" target="_blank">YouTube</a>
+        <a href="https://x.com/rpedroni" target="_blank">Twitter/X</a>
+      </div>
+    </div>
+    <div class="footer-tagline">
+      feito com 🦆 e café
+    </div>
+  </footer>
 </body>
 </html>

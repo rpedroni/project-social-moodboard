@@ -1,327 +1,683 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>🦆 Pato Builder — Workspace</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DM+Sans:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  background: #0a0a0a;
-  color: #fff;
-  font-family: 'DM Sans', sans-serif;
-  min-height: 100vh;
-  display: flex;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 280px;
-  background: #111;
-  border-right: 1px solid #1a1a1a;
-  padding: 24px 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  overflow-y: auto;
-  z-index: 10;
-}
-
-.sidebar-brand {
-  padding: 0 24px 24px;
-  border-bottom: 1px solid #1a1a1a;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.duck-icon {
-  width: 1px; height: 1px;
-  position: relative;
-  transform: scale(3.2);
-  transform-origin: top left;
-  box-shadow:
-    4px 0 #ffd700, 5px 0 #ffd700, 6px 0 #ffd700,
-    3px 1px #ffd700, 4px 1px #ffd700, 5px 1px #ffd700, 6px 1px #ffd700, 7px 1px #ffd700,
-    3px 2px #ffd700, 4px 2px #ffd700, 5px 2px #111, 6px 2px #ffd700, 7px 2px #ffd700,
-    3px 3px #ffd700, 4px 3px #ffd700, 5px 3px #ffd700, 6px 3px #ffd700, 7px 3px #ffd700, 8px 3px #ff8c00, 9px 3px #ff8c00,
-    3px 4px #ffd700, 4px 4px #ffd700, 5px 4px #ffd700, 6px 4px #ffd700,
-    0px 5px #ffd700, 1px 5px #ffd700, 2px 5px #ffd700, 3px 5px #ffd700, 4px 5px #ffd700, 5px 5px #ffd700, 6px 5px #ffd700, 7px 5px #ffd700,
-    0px 6px #ffd700, 1px 6px #ffd700, 2px 6px #ffc800, 3px 6px #ffc800, 4px 6px #ffc800, 5px 6px #ffc800, 6px 6px #ffd700, 7px 6px #ffd700, 8px 6px #ffd700,
-    0px 7px #ffd700, 1px 7px #ffc800, 2px 7px #ffc800, 3px 7px #ffc800, 4px 7px #ffc800, 5px 7px #ffc800, 6px 7px #ffc800, 7px 7px #ffd700, 8px 7px #ffd700,
-    1px 8px #ffd700, 2px 8px #ffd700, 3px 8px #ffd700, 4px 8px #ffd700, 5px 8px #ffd700, 6px 8px #ffd700, 7px 8px #ffd700,
-    2px 9px #ff8c00, 3px 9px #ff8c00, 5px 9px #ff8c00, 6px 9px #ff8c00;
-}
-.duck-wrap { width: 36px; height: 36px; position: relative; flex-shrink: 0; }
-
-.brand-text {
-  font-family: 'Press Start 2P', monospace;
-  font-size: 11px;
-  color: #ffd700;
-  letter-spacing: 1px;
-  line-height: 1.4;
-}
-.brand-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: #555;
-  margin-top: 2px;
-}
-
-.nav-section {
-  padding: 12px 24px 6px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: #555;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 24px;
-  color: #888;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.15s;
-  border-left: 3px solid transparent;
-}
-.nav-link:hover {
-  color: #ffd700;
-  background: rgba(255, 215, 0, 0.05);
-  border-left-color: #ffd700;
-}
-.nav-link .emoji { font-size: 16px; width: 24px; text-align: center; }
-.nav-link.active {
-  color: #ffd700;
-  background: rgba(255, 215, 0, 0.08);
-  border-left-color: #ffd700;
-}
-
-.nav-divider {
-  height: 1px;
-  background: #1a1a1a;
-  margin: 8px 24px;
-}
-
-.nav-badge {
-  margin-left: auto;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: #ffd700;
-  background: rgba(255, 215, 0, 0.1);
-  padding: 2px 6px;
-  border-radius: 3px;
-}
-
-/* Main content */
-.main {
-  margin-left: 280px;
-  flex: 1;
-  padding: 48px;
-}
-
-.main h1 {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 900;
-  font-size: 36px;
-  color: #fff;
-  margin-bottom: 8px;
-}
-.main h1 span { color: #ffd700; }
-
-.main .subtitle {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 40px;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-}
-
-.card {
-  background: #141414;
-  border: 1px solid #1a1a1a;
-  padding: 24px;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-.card:hover {
-  border-color: #ffd700;
-  transform: translateY(-2px);
-}
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(to right, #ffd700, #ff8c00);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.card:hover::before { opacity: 1; }
-
-.card-emoji { font-size: 28px; margin-bottom: 12px; display: block; }
-.card-title {
-  font-weight: 700;
-  font-size: 18px;
-  color: #fff;
-  margin-bottom: 6px;
-}
-.card-desc {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.5;
-}
-.card-tag {
-  display: inline-block;
-  margin-top: 12px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: #ffd700;
-  border: 1px solid #333;
-  padding: 3px 8px;
-}
-
-/* Status indicator */
-.status-dot {
-  display: inline-block;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  margin-right: 6px;
-}
-.status-live { background: #22c55e; }
-.status-wip { background: #f59e0b; }
-.status-planned { background: #555; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>DuckLabs 🦆 — IA explicada por quem constrói com ela</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DM+Sans:wght@400;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: #0a0a0a;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+    
+    /* Pixel Duck */
+    .duck-pixel {
+      width: 1px;
+      height: 1px;
+      position: absolute;
+      transform-origin: top left;
+      box-shadow:
+        4px 0 #ffd700, 5px 0 #ffd700, 6px 0 #ffd700,
+        3px 1px #ffd700, 4px 1px #ffd700, 5px 1px #ffd700, 6px 1px #ffd700, 7px 1px #ffd700,
+        3px 2px #ffd700, 4px 2px #ffd700, 5px 2px #111111, 6px 2px #ffd700, 7px 2px #ffd700,
+        3px 3px #ffd700, 4px 3px #ffd700, 5px 3px #ffd700, 6px 3px #ffd700, 7px 3px #ffd700, 8px 3px #ff8c00, 9px 3px #ff8c00,
+        3px 4px #ffd700, 4px 4px #ffd700, 5px 4px #ffd700, 6px 4px #ffd700,
+        0px 5px #ffd700, 1px 5px #ffd700, 2px 5px #ffd700, 3px 5px #ffd700, 4px 5px #ffd700, 5px 5px #ffd700, 6px 5px #ffd700, 7px 5px #ffd700,
+        0px 6px #ffd700, 1px 6px #ffd700, 2px 6px #ffc800, 3px 6px #ffc800, 4px 6px #ffc800, 5px 6px #ffc800, 6px 6px #ffd700, 7px 6px #ffd700, 8px 6px #ffd700,
+        0px 7px #ffd700, 1px 7px #ffc800, 2px 7px #ffc800, 3px 7px #ffc800, 4px 7px #ffc800, 5px 7px #ffc800, 6px 7px #ffc800, 7px 7px #ffd700, 8px 7px #ffd700,
+        1px 8px #ffd700, 2px 8px #ffd700, 3px 8px #ffd700, 4px 8px #ffd700, 5px 8px #ffd700, 6px 8px #ffd700, 7px 8px #ffd700,
+        2px 9px #ff8c00, 3px 9px #ff8c00, 5px 9px #ff8c00, 6px 9px #ff8c00;
+    }
+    
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #0a0a0a;
+      border-bottom: 1px solid #1a1a1a;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+    }
+    
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .nav-logo .duck-pixel {
+      position: relative;
+      transform: scale(3);
+      margin-right: 20px;
+    }
+    
+    .nav-logo-text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 14px;
+      color: #ffd700;
+      letter-spacing: 2px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: #999999;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: #ffd700;
+    }
+    
+    .nav-cta {
+      background: #ffd700;
+      color: #0a0a0a;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 140px 2rem 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      color: #ffd700;
+      padding: 0.5rem 1rem;
+      border: 1px solid #333;
+      border-radius: 4px;
+      width: fit-content;
+    }
+    
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #ffd700;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    
+    .hero h1 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 900;
+      font-size: 48px;
+      line-height: 1.2;
+    }
+    
+    .hero h1 .highlight {
+      color: #ffd700;
+    }
+    
+    .hero-subtitle {
+      font-size: 18px;
+      color: #999999;
+      line-height: 1.6;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .btn-primary {
+      background: #ffd700;
+      color: #0a0a0a;
+      padding: 1rem 2rem;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: #ffd700;
+      padding: 1rem 2rem;
+      border: 2px solid #333;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn-secondary:hover {
+      border-color: #ffd700;
+    }
+    
+    .hero-duck {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .hero-duck .duck-pixel {
+      position: relative;
+      transform: scale(28);
+    }
+    
+    .hero-duck::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+      z-index: -1;
+    }
+    
+    /* Stats Bar */
+    .stats {
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+      padding: 2rem 0;
+      margin: 4rem 0;
+    }
+    
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    
+    .stat {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 900;
+      font-size: 36px;
+      color: #ffd700;
+    }
+    
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #666666;
+      margin-top: 0.5rem;
+    }
+    
+    /* Content Themes Section */
+    .section {
+      max-width: 1200px;
+      margin: 6rem auto;
+      padding: 0 2rem;
+    }
+    
+    .section-header {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 14px;
+      color: #ffd700;
+      margin-bottom: 3rem;
+      letter-spacing: 2px;
+    }
+    
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .card {
+      background: #141414;
+      border: 1px solid #1a1a1a;
+      border-radius: 8px;
+      padding: 2rem;
+      position: relative;
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ffd700, #ff8c00);
+    }
+    
+    .card:hover {
+      border-color: #ffd700;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+    }
+    
+    .card-emoji {
+      font-size: 32px;
+      margin-bottom: 1rem;
+    }
+    
+    .card-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+    }
+    
+    .card-description {
+      font-size: 14px;
+      color: #999999;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #ffd700;
+      border: 1px solid #333;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+    }
+    
+    /* Workspace Section */
+    .workspace-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .workspace-card-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .badge-live {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #0a0a0a;
+      background: #ffd700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    
+    .badge-next {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #666666;
+      background: #1a1a1a;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    
+    /* Footer */
+    footer {
+      border-top: 1px solid #1a1a1a;
+      padding: 3rem 2rem;
+      margin-top: 6rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 14px;
+      color: #666666;
+    }
+    
+    .footer-brand .duck-pixel {
+      position: relative;
+      transform: scale(2);
+      margin-right: 10px;
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .footer-social a {
+      color: #666666;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    
+    .footer-social a:hover {
+      color: #ffd700;
+    }
+    
+    .footer-tagline {
+      text-align: center;
+      color: #666666;
+      font-size: 12px;
+      margin-top: 2rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+      
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 100px 1rem 60px;
+      }
+      
+      .hero h1 {
+        font-size: 32px;
+      }
+      
+      .hero-duck .duck-pixel {
+        transform: scale(18);
+      }
+      
+      .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<nav class="sidebar">
-  <div class="sidebar-brand">
-    <div class="duck-wrap"><div class="duck-icon"></div></div>
-    <div>
-      <div class="brand-text">PATO BUILDER</div>
-      <div class="brand-sub">workspace</div>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-logo">
+      <div class="duck-pixel"></div>
+      <span class="nav-logo-text">DUCKLABS</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/moodboard/">Moodboard</a></li>
+      <li><a href="/demos/">Demos</a></li>
+      <li><a href="/assets/">Assets</a></li>
+      <li><a href="#">Docs</a></li>
+    </ul>
+    <button class="nav-cta">Seguir 🦆</button>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="badge">
+        <div class="pulse-dot"></div>
+        🦆 DUCKLABS
+      </div>
+      <h1>IA explicada por quem <span class="highlight">constrói</span> com ela.</h1>
+      <p class="hero-subtitle">
+        Lições rápidas, reviews honestos e o veredito final do pato. Sem enrolação, sem hype vazio.
+      </p>
+      <div class="hero-buttons">
+        <a href="#content" class="btn-primary">Ver lições 🦆</a>
+        <a href="#content" class="btn-secondary">IA do Dia →</a>
+      </div>
+    </div>
+    <div class="hero-duck">
+      <div class="duck-pixel"></div>
+    </div>
+  </section>
+  
+  <!-- Stats Bar -->
+  <div class="stats">
+    <div class="stats-container">
+      <div class="stat">
+        <div class="stat-number">47</div>
+        <div class="stat-label">Lições</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">156</div>
+        <div class="stat-label">IAs revisadas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">23</div>
+        <div class="stat-label">Sunsets</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">12.4k</div>
+        <div class="stat-label">Builders</div>
+      </div>
     </div>
   </div>
-
-  <div class="nav-section">Visual</div>
-  <a href="/project-rpedroni-social/moodboard/" class="nav-link">
-    <span class="emoji">🎨</span> Moodboard
-    <span class="nav-badge">38</span>
-  </a>
-  <a href="/project-rpedroni-social/landing/" class="nav-link">
-    <span class="emoji">🏠</span> Landing Page
-  </a>
-
-  <div class="nav-divider"></div>
-  <div class="nav-section">Demos</div>
-  <a href="/project-rpedroni-social/demos/" class="nav-link">
-    <span class="emoji">🎬</span> Three.js + anime.js
-  </a>
-
-  <div class="nav-divider"></div>
-  <div class="nav-section">Assets</div>
-  <a href="/project-rpedroni-social/assets/pato-builder.svg" class="nav-link">
-    <span class="emoji">🦆</span> SVG — com martelo
-  </a>
-  <a href="/project-rpedroni-social/assets/pato-classic.svg" class="nav-link">
-    <span class="emoji">🦆</span> SVG — clássico
-  </a>
-
-  <div class="nav-divider"></div>
-  <div class="nav-section">Docs</div>
-  <a href="#" class="nav-link active" onclick="return false">
-    <span class="emoji">📋</span> Hub (você está aqui)
-  </a>
-
-  <div class="nav-divider"></div>
-  <div class="nav-section">Status</div>
-  <div style="padding: 8px 24px; font-size: 12px; color: #666; line-height: 1.8;">
-    <span class="status-dot status-live"></span> Live<br>
-    <span class="status-dot status-wip"></span> Em progresso<br>
-    <span class="status-dot status-planned"></span> Planejado
-  </div>
-</nav>
-
-<main class="main">
-  <h1>🦆 Pato <span>Builder</span> Workspace</h1>
-  <p class="subtitle">tudo que temos até agora — visual, assets, demos, docs</p>
-
-  <div class="cards">
-    <a href="/project-rpedroni-social/moodboard/" class="card">
-      <span class="card-emoji">🎨</span>
-      <div class="card-title">Moodboard — 38 Direções</div>
-      <div class="card-desc">38 direções visuais com patos, gatos e macacos. Paletas, tipografia, cards mockup, stories, perfil IG.</div>
-      <span class="card-tag"><span class="status-dot status-live"></span> live</span>
-    </a>
-
-    <a href="/project-rpedroni-social/landing/" class="card">
-      <span class="card-emoji">🏠</span>
-      <div class="card-title">Landing Page</div>
-      <div class="card-desc">Landing original do projeto social media. Hero, about, link tree.</div>
-      <span class="card-tag"><span class="status-dot status-live"></span> live</span>
-    </a>
-
-    <a href="/project-rpedroni-social/demos/" class="card">
-      <span class="card-emoji">🎬</span>
-      <div class="card-title">Demo — Three.js + anime.js</div>
-      <div class="card-desc">Background 3D com cubos dourados + animações de UI (intro, stats, shake, full sequence). Interativo.</div>
-      <span class="card-tag"><span class="status-dot status-live"></span> live</span>
-    </a>
-
-    <a href="/project-rpedroni-social/assets/pato-builder.svg" class="card">
-      <span class="card-emoji">🦆</span>
-      <div class="card-title">SVG — Pato Builder</div>
-      <div class="card-desc">Pixel art duck com martelinho. ViewBox 10x10, escala infinita. shape-rendering crispEdges.</div>
-      <span class="card-tag"><span class="status-dot status-live"></span> live</span>
-    </a>
-
-    <a href="#" class="card" onclick="return false">
-      <span class="card-emoji">⚙️</span>
-      <div class="card-title">generate-post.mjs</div>
-      <div class="card-desc">Script de automação: YAML → template → Puppeteer → PNG/MP4. Um comando gera todos os assets.</div>
-      <span class="card-tag"><span class="status-dot status-planned"></span> próximo</span>
-    </a>
-
-    <a href="#" class="card" onclick="return false">
-      <span class="card-emoji">🌐</span>
-      <div class="card-title">Site — Feed Espelho</div>
-      <div class="card-desc">Grid 3 colunas espelhando o IG. Cada post vira página com email capture. SEO + cross-platform.</div>
-      <span class="card-tag"><span class="status-dot status-planned"></span> próximo</span>
-    </a>
-
-    <a href="#" class="card" onclick="return false">
-      <span class="card-emoji">📧</span>
-      <div class="card-title">Email Capture + Newsletter</div>
-      <div class="card-desc">"Pato Semanal 🦆" — lead magnets por tema, captura em cada touchpoint, Buttondown ou ConvertKit.</div>
-      <span class="card-tag"><span class="status-dot status-planned"></span> próximo</span>
-    </a>
-
-    <a href="#" class="card" onclick="return false">
-      <span class="card-emoji">📚</span>
-      <div class="card-title">Content System</div>
-      <div class="card-desc">5 temas escaláveis + 3 face-to-camera. Pipeline, CTAs, funil, métricas. Documentado em CONTENT-SYSTEM.md.</div>
-      <span class="card-tag"><span class="status-dot status-wip"></span> em progresso</span>
-    </a>
-  </div>
-</main>
-
+  
+  <!-- Content Themes Section -->
+  <section class="section" id="content">
+    <h2 class="section-header">📌 FORMATOS DE CONTEÚDO</h2>
+    <div class="content-grid">
+      <div class="card">
+        <div class="card-emoji">📚</div>
+        <h3 class="card-title">LIÇÃO DE IA</h3>
+        <p class="card-description">
+          Micro-lições sobre IA. Opinião forte, 1 ideia por post.
+        </p>
+        <span class="tag">weekly</span>
+      </div>
+      
+      <div class="card">
+        <div class="card-emoji">🔍</div>
+        <h3 class="card-title">IA DO DIA</h3>
+        <p class="card-description">
+          Review honesto de ferramenta. Veredito do pato.
+        </p>
+        <span class="tag">daily</span>
+      </div>
+      
+      <div class="card">
+        <div class="card-emoji">☠️</div>
+        <h3 class="card-title">SUNSET</h3>
+        <p class="card-description">
+          Obituário de IAs que morreram.
+        </p>
+        <span class="tag">irregular</span>
+      </div>
+      
+      <div class="card">
+        <div class="card-emoji">🧪</div>
+        <h3 class="card-title">LAB</h3>
+        <p class="card-description">
+          Experimentos ao vivo. Testei X, aconteceu Y.
+        </p>
+        <span class="tag">experiments</span>
+      </div>
+      
+      <div class="card">
+        <div class="card-emoji">🔥</div>
+        <h3 class="card-title">HOT TAKE</h3>
+        <p class="card-description">
+          Opinião polêmica com substância.
+        </p>
+        <span class="tag">opinion</span>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Workspace Section -->
+  <section class="section">
+    <h2 class="section-header">🔧 WORKSPACE</h2>
+    <div class="content-grid">
+      <a href="/moodboard/" class="card workspace-card">
+        <div class="workspace-card-content">
+          <span class="card-emoji">🎨</span>
+          <div>
+            <h3 class="card-title">Moodboard</h3>
+            <p class="card-description">43 direções</p>
+          </div>
+        </div>
+        <span class="badge-live">LIVE</span>
+      </a>
+      
+      <a href="/demos/" class="card workspace-card">
+        <div class="workspace-card-content">
+          <span class="card-emoji">🎬</span>
+          <div>
+            <h3 class="card-title">Demo Three.js + anime.js</h3>
+            <p class="card-description">Experimentos visuais</p>
+          </div>
+        </div>
+        <span class="badge-live">LIVE</span>
+      </a>
+      
+      <a href="/assets/pato-classic.svg" class="card workspace-card">
+        <div class="workspace-card-content">
+          <span class="card-emoji">🦆</span>
+          <div>
+            <h3 class="card-title">SVG Assets</h3>
+            <p class="card-description">Logos e recursos</p>
+          </div>
+        </div>
+        <span class="badge-live">LIVE</span>
+      </a>
+      
+      <a href="#" class="card workspace-card">
+        <div class="workspace-card-content">
+          <span class="card-emoji">⚙️</span>
+          <div>
+            <h3 class="card-title">Content Pipeline</h3>
+            <p class="card-description">Sistema de publicação</p>
+          </div>
+        </div>
+        <span class="badge-next">PRÓXIMO</span>
+      </a>
+      
+      <a href="#" class="card workspace-card">
+        <div class="workspace-card-content">
+          <span class="card-emoji">🌐</span>
+          <div>
+            <h3 class="card-title">Feed Espelho</h3>
+            <p class="card-description">Multi-plataforma</p>
+          </div>
+        </div>
+        <span class="badge-next">PRÓXIMO</span>
+      </a>
+      
+      <a href="#" class="card workspace-card">
+        <div class="workspace-card-content">
+          <span class="card-emoji">📧</span>
+          <div>
+            <h3 class="card-title">Newsletter</h3>
+            <p class="card-description">Distribuição semanal</p>
+          </div>
+        </div>
+        <span class="badge-next">PRÓXIMO</span>
+      </a>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="duck-pixel"></div>
+        <span>© 2026 DuckLabs · @rpedroni</span>
+      </div>
+      <div class="footer-social">
+        <a href="https://instagram.com/rpedroni" target="_blank">Instagram</a>
+        <a href="https://youtube.com/@rpedroni" target="_blank">YouTube</a>
+        <a href="https://x.com/rpedroni" target="_blank">Twitter/X</a>
+      </div>
+    </div>
+    <div class="footer-tagline">
+      feito com 🦆 e café
+    </div>
+  </footer>
 </body>
 </html>
