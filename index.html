@@ -4,60 +4,324 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>@rpedroni — Social</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<title>🦆 Pato Builder — Workspace</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DM+Sans:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-  font-family: 'DM Sans', sans-serif;
-  background: #111111;
+  background: #0a0a0a;
   color: #fff;
+  font-family: 'DM Sans', sans-serif;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background: #111;
+  border-right: 1px solid #1a1a1a;
+  padding: 24px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.sidebar-brand {
+  padding: 0 24px 24px;
+  border-bottom: 1px solid #1a1a1a;
+  margin-bottom: 16px;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
+  gap: 12px;
 }
-h1 { font-size: 48px; font-weight: 800; margin-bottom: 8px; }
-h1 span { color: #06d6a0; }
-.sub { color: #666; font-size: 18px; margin-bottom: 48px; }
-.links { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 400px; }
-a {
-  display: flex; align-items: center; gap: 16px;
-  background: #1a1a1a; border: 1px solid rgba(6,214,160,0.15);
-  border-radius: 16px; padding: 20px 24px;
-  color: #fff; text-decoration: none;
+
+.duck-icon {
+  width: 1px; height: 1px;
+  position: relative;
+  transform: scale(3.2);
+  transform-origin: top left;
+  box-shadow:
+    4px 0 #ffd700, 5px 0 #ffd700, 6px 0 #ffd700,
+    3px 1px #ffd700, 4px 1px #ffd700, 5px 1px #ffd700, 6px 1px #ffd700, 7px 1px #ffd700,
+    3px 2px #ffd700, 4px 2px #ffd700, 5px 2px #111, 6px 2px #ffd700, 7px 2px #ffd700,
+    3px 3px #ffd700, 4px 3px #ffd700, 5px 3px #ffd700, 6px 3px #ffd700, 7px 3px #ffd700, 8px 3px #ff8c00, 9px 3px #ff8c00,
+    3px 4px #ffd700, 4px 4px #ffd700, 5px 4px #ffd700, 6px 4px #ffd700,
+    0px 5px #ffd700, 1px 5px #ffd700, 2px 5px #ffd700, 3px 5px #ffd700, 4px 5px #ffd700, 5px 5px #ffd700, 6px 5px #ffd700, 7px 5px #ffd700,
+    0px 6px #ffd700, 1px 6px #ffd700, 2px 6px #ffc800, 3px 6px #ffc800, 4px 6px #ffc800, 5px 6px #ffc800, 6px 6px #ffd700, 7px 6px #ffd700, 8px 6px #ffd700,
+    0px 7px #ffd700, 1px 7px #ffc800, 2px 7px #ffc800, 3px 7px #ffc800, 4px 7px #ffc800, 5px 7px #ffc800, 6px 7px #ffc800, 7px 7px #ffd700, 8px 7px #ffd700,
+    1px 8px #ffd700, 2px 8px #ffd700, 3px 8px #ffd700, 4px 8px #ffd700, 5px 8px #ffd700, 6px 8px #ffd700, 7px 8px #ffd700,
+    2px 9px #ff8c00, 3px 9px #ff8c00, 5px 9px #ff8c00, 6px 9px #ff8c00;
+}
+.duck-wrap { width: 36px; height: 36px; position: relative; flex-shrink: 0; }
+
+.brand-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  color: #ffd700;
+  letter-spacing: 1px;
+  line-height: 1.4;
+}
+.brand-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #555;
+  margin-top: 2px;
+}
+
+.nav-section {
+  padding: 12px 24px 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #555;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  color: #888;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover {
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.05);
+  border-left-color: #ffd700;
+}
+.nav-link .emoji { font-size: 16px; width: 24px; text-align: center; }
+.nav-link.active {
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.08);
+  border-left-color: #ffd700;
+}
+
+.nav-divider {
+  height: 1px;
+  background: #1a1a1a;
+  margin: 8px 24px;
+}
+
+.nav-badge {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+/* Main content */
+.main {
+  margin-left: 280px;
+  flex: 1;
+  padding: 48px;
+}
+
+.main h1 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 900;
+  font-size: 36px;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.main h1 span { color: #ffd700; }
+
+.main .subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #141414;
+  border: 1px solid #1a1a1a;
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
   transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
 }
-a:hover { border-color: #06d6a0; transform: translateY(-2px); }
-.icon { font-size: 28px; }
-.label { font-weight: 700; font-size: 17px; }
-.desc { font-size: 13px; color: #666; }
-.foot { margin-top: 48px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #333; }
+.card:hover {
+  border-color: #ffd700;
+  transform: translateY(-2px);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, #ffd700, #ff8c00);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.card:hover::before { opacity: 1; }
+
+.card-emoji { font-size: 28px; margin-bottom: 12px; display: block; }
+.card-title {
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.card-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+.card-tag {
+  display: inline-block;
+  margin-top: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #ffd700;
+  border: 1px solid #333;
+  padding: 3px 8px;
+}
+
+/* Status indicator */
+.status-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+.status-live { background: #22c55e; }
+.status-wip { background: #f59e0b; }
+.status-planned { background: #555; }
 </style>
 </head>
 <body>
-<h1>🐒 <span>@rpedroni</span></h1>
-<p class="sub">social media hub</p>
-<div class="links">
-  <a href="./moodboard/">
-    <span class="icon">🎨</span>
-    <div><div class="label">Moodboards</div><div class="desc">20 direções visuais comparadas</div></div>
+
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="duck-wrap"><div class="duck-icon"></div></div>
+    <div>
+      <div class="brand-text">PATO BUILDER</div>
+      <div class="brand-sub">workspace</div>
+    </div>
+  </div>
+
+  <div class="nav-section">Visual</div>
+  <a href="/project-rpedroni-social/moodboard/" class="nav-link">
+    <span class="emoji">🎨</span> Moodboard
+    <span class="nav-badge">38</span>
   </a>
-  <a href="./landing/">
-    <span class="icon">📬</span>
-    <div><div class="label">Landing Page</div><div class="desc">Captura de email — Lab do Pedroni</div></div>
+  <a href="/project-rpedroni-social/landing/" class="nav-link">
+    <span class="emoji">🏠</span> Landing Page
   </a>
-  <a href="./templates/">
-    <span class="icon">📐</span>
-    <div><div class="label">Templates</div><div class="desc">HTML templates para posts</div></div>
+
+  <div class="nav-divider"></div>
+  <div class="nav-section">Demos</div>
+  <a href="/project-rpedroni-social/demos/" class="nav-link">
+    <span class="emoji">🎬</span> Three.js + anime.js
   </a>
-  <a href="./outputs/">
-    <span class="icon">🖼️</span>
-    <div><div class="label">Outputs</div><div class="desc">Imagens prontas (PNG 1080x1350)</div></div>
+
+  <div class="nav-divider"></div>
+  <div class="nav-section">Assets</div>
+  <a href="/project-rpedroni-social/assets/pato-builder.svg" class="nav-link">
+    <span class="emoji">🦆</span> SVG — com martelo
   </a>
-</div>
-<p class="foot">projeto interno — não indexado</p>
+  <a href="/project-rpedroni-social/assets/pato-classic.svg" class="nav-link">
+    <span class="emoji">🦆</span> SVG — clássico
+  </a>
+
+  <div class="nav-divider"></div>
+  <div class="nav-section">Docs</div>
+  <a href="#" class="nav-link active" onclick="return false">
+    <span class="emoji">📋</span> Hub (você está aqui)
+  </a>
+
+  <div class="nav-divider"></div>
+  <div class="nav-section">Status</div>
+  <div style="padding: 8px 24px; font-size: 12px; color: #666; line-height: 1.8;">
+    <span class="status-dot status-live"></span> Live<br>
+    <span class="status-dot status-wip"></span> Em progresso<br>
+    <span class="status-dot status-planned"></span> Planejado
+  </div>
+</nav>
+
+<main class="main">
+  <h1>🦆 Pato <span>Builder</span> Workspace</h1>
+  <p class="subtitle">tudo que temos até agora — visual, assets, demos, docs</p>
+
+  <div class="cards">
+    <a href="/project-rpedroni-social/moodboard/" class="card">
+      <span class="card-emoji">🎨</span>
+      <div class="card-title">Moodboard — 38 Direções</div>
+      <div class="card-desc">38 direções visuais com patos, gatos e macacos. Paletas, tipografia, cards mockup, stories, perfil IG.</div>
+      <span class="card-tag"><span class="status-dot status-live"></span> live</span>
+    </a>
+
+    <a href="/project-rpedroni-social/landing/" class="card">
+      <span class="card-emoji">🏠</span>
+      <div class="card-title">Landing Page</div>
+      <div class="card-desc">Landing original do projeto social media. Hero, about, link tree.</div>
+      <span class="card-tag"><span class="status-dot status-live"></span> live</span>
+    </a>
+
+    <a href="/project-rpedroni-social/demos/" class="card">
+      <span class="card-emoji">🎬</span>
+      <div class="card-title">Demo — Three.js + anime.js</div>
+      <div class="card-desc">Background 3D com cubos dourados + animações de UI (intro, stats, shake, full sequence). Interativo.</div>
+      <span class="card-tag"><span class="status-dot status-live"></span> live</span>
+    </a>
+
+    <a href="/project-rpedroni-social/assets/pato-builder.svg" class="card">
+      <span class="card-emoji">🦆</span>
+      <div class="card-title">SVG — Pato Builder</div>
+      <div class="card-desc">Pixel art duck com martelinho. ViewBox 10x10, escala infinita. shape-rendering crispEdges.</div>
+      <span class="card-tag"><span class="status-dot status-live"></span> live</span>
+    </a>
+
+    <a href="#" class="card" onclick="return false">
+      <span class="card-emoji">⚙️</span>
+      <div class="card-title">generate-post.mjs</div>
+      <div class="card-desc">Script de automação: YAML → template → Puppeteer → PNG/MP4. Um comando gera todos os assets.</div>
+      <span class="card-tag"><span class="status-dot status-planned"></span> próximo</span>
+    </a>
+
+    <a href="#" class="card" onclick="return false">
+      <span class="card-emoji">🌐</span>
+      <div class="card-title">Site — Feed Espelho</div>
+      <div class="card-desc">Grid 3 colunas espelhando o IG. Cada post vira página com email capture. SEO + cross-platform.</div>
+      <span class="card-tag"><span class="status-dot status-planned"></span> próximo</span>
+    </a>
+
+    <a href="#" class="card" onclick="return false">
+      <span class="card-emoji">📧</span>
+      <div class="card-title">Email Capture + Newsletter</div>
+      <div class="card-desc">"Pato Semanal 🦆" — lead magnets por tema, captura em cada touchpoint, Buttondown ou ConvertKit.</div>
+      <span class="card-tag"><span class="status-dot status-planned"></span> próximo</span>
+    </a>
+
+    <a href="#" class="card" onclick="return false">
+      <span class="card-emoji">📚</span>
+      <div class="card-title">Content System</div>
+      <div class="card-desc">5 temas escaláveis + 3 face-to-camera. Pipeline, CTAs, funil, métricas. Documentado em CONTENT-SYSTEM.md.</div>
+      <span class="card-tag"><span class="status-dot status-wip"></span> em progresso</span>
+    </a>
+  </div>
+</main>
+
 </body>
 </html>
