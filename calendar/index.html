@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>@rpedroni — Content Calendar</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --card: #141414;
+    --border: #222;
+    --gold: #ffd700;
+    --text: #e5e5e5;
+    --muted: #888;
+    --licao: #ff6b35;
+    --ia-do-dia: #4ecdc4;
+    --hot-take: #ff2d55;
+    --story: #8b5cf6;
+    --reel: #f472b6;
+    --rest: #333;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 28px;
+    margin-bottom: 4px;
+    color: var(--gold);
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+  .week {
+    margin-bottom: 32px;
+  }
+  .week-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+  .day-header {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 0;
+  }
+  .day {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    min-height: 120px;
+    position: relative;
+  }
+  .day.rest {
+    opacity: 0.4;
+  }
+  .day-number {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .post {
+    padding: 6px 8px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: default;
+    line-height: 1.3;
+  }
+  .post.licao { background: rgba(255,107,53,0.15); color: var(--licao); border-left: 3px solid var(--licao); }
+  .post.ia-do-dia { background: rgba(78,205,196,0.15); color: var(--ia-do-dia); border-left: 3px solid var(--ia-do-dia); }
+  .post.hot-take { background: rgba(255,45,85,0.15); color: var(--hot-take); border-left: 3px solid var(--hot-take); }
+  .post.story { background: rgba(139,92,246,0.15); color: var(--story); border-left: 3px solid var(--story); }
+  .post.reel { background: rgba(244,114,182,0.15); color: var(--reel); border-left: 3px solid var(--reel); }
+  .post-title { font-weight: 600; }
+  .post-sub { font-size: 10px; opacity: 0.7; margin-top: 2px; }
+
+  .stats {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .notes {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 24px;
+  }
+  .notes h3 {
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  .notes ul {
+    list-style: none;
+    padding: 0;
+  }
+  .notes li {
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .notes li:last-child { border: none; }
+  .notes li strong { color: var(--text); }
+  .emoji { margin-right: 6px; }
+
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .day-header { display: none; }
+    .day-number::before {
+      content: attr(data-dow) " ";
+      color: var(--gold);
+      font-weight: 600;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>📅 @rpedroni Content Calendar</h1>
+<p class="subtitle">Semanas 1-2 · 13 posts prontos · 3 formatos · Instagram-first</p>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-value">13</div>
+    <div class="stat-label">Posts Prontos</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">3</div>
+    <div class="stat-label">Formatos</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">14</div>
+    <div class="stat-label">Dias de Conteúdo</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">~5</div>
+    <div class="stat-label">Stories/semana</div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--licao)"></div> Lição de IA</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--ia-do-dia)"></div> IA do Dia</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--hot-take)"></div> Hot Take</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--story)"></div> Story</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--reel)"></div> Reel</div>
+</div>
+
+<!-- WEEK 1 -->
+<div class="week">
+  <div class="week-title">Semana 1 — Lançamento (10-16 Fev)</div>
+  <div class="grid">
+    <div class="day-header">SEG</div>
+    <div class="day-header">TER</div>
+    <div class="day-header">QUA</div>
+    <div class="day-header">QUI</div>
+    <div class="day-header">SEX</div>
+    <div class="day-header">SÁB</div>
+    <div class="day-header">DOM</div>
+
+    <!-- Mon Feb 10 -->
+    <div class="day">
+      <div class="day-number" data-dow="SEG">10 fev</div>
+      <div class="post licao">
+        <div class="post-title">Lição #001</div>
+        <div class="post-sub">IA não rouba emprego?</div>
+      </div>
+      <div class="post story">
+        <div class="post-title">Story: Bastidores</div>
+        <div class="post-sub">"Começando algo novo..."</div>
+      </div>
+    </div>
+
+    <!-- Tue Feb 11 -->
+    <div class="day">
+      <div class="day-number" data-dow="TER">11 fev</div>
+      <div class="post ia-do-dia">
+        <div class="post-title">IA do Dia #001</div>
+        <div class="post-sub">Cursor — o editor com IA</div>
+      </div>
+    </div>
+
+    <!-- Wed Feb 12 -->
+    <div class="day">
+      <div class="day-number" data-dow="QUA">12 fev</div>
+      <div class="post story">
+        <div class="post-title">Story: Enquete</div>
+        <div class="post-sub">"Qual IA você mais usa?"</div>
+      </div>
+    </div>
+
+    <!-- Thu Feb 13 -->
+    <div class="day">
+      <div class="day-number" data-dow="QUI">13 fev</div>
+      <div class="post licao">
+        <div class="post-title">Lição #002</div>
+        <div class="post-sub">IA passiva = -17% skill</div>
+      </div>
+      <div class="post hot-take">
+        <div class="post-title">🔥 Hot Take #001</div>
+        <div class="post-sub">IA passiva tira emprego</div>
+      </div>
+    </div>
+
+    <!-- Fri Feb 14 -->
+    <div class="day">
+      <div class="day-number" data-dow="SEX">14 fev</div>
+      <div class="post ia-do-dia">
+        <div class="post-title">IA do Dia #002</div>
+        <div class="post-sub">Perplexity — adeus Google</div>
+      </div>
+    </div>
+
+    <!-- Sat Feb 15 -->
+    <div class="day">
+      <div class="day-number" data-dow="SÁB">15 fev</div>
+      <div class="post reel">
+        <div class="post-title">🎬 Reel: Semana 1</div>
+        <div class="post-sub">Top 3 lições da semana</div>
+      </div>
+      <div class="post story">
+        <div class="post-title">Story: Números</div>
+        <div class="post-sub">Recap semana 1</div>
+      </div>
+    </div>
+
+    <!-- Sun Feb 16 -->
+    <div class="day rest">
+      <div class="day-number" data-dow="DOM">16 fev</div>
+      <div class="post story">
+        <div class="post-title">Story: Casual</div>
+        <div class="post-sub">Bastidores com a família</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WEEK 2 -->
+<div class="week">
+  <div class="week-title">Semana 2 — Ritmo (17-23 Fev)</div>
+  <div class="grid">
+    <div class="day-header">SEG</div>
+    <div class="day-header">TER</div>
+    <div class="day-header">QUA</div>
+    <div class="day-header">QUI</div>
+    <div class="day-header">SEX</div>
+    <div class="day-header">SÁB</div>
+    <div class="day-header">DOM</div>
+
+    <!-- Mon Feb 17 -->
+    <div class="day">
+      <div class="day-number" data-dow="SEG">17 fev</div>
+      <div class="post licao">
+        <div class="post-title">Lição #003</div>
+        <div class="post-sub">Prompt genérico = resposta genérica</div>
+      </div>
+    </div>
+
+    <!-- Tue Feb 18 -->
+    <div class="day">
+      <div class="day-number" data-dow="TER">18 fev</div>
+      <div class="post ia-do-dia">
+        <div class="post-title">IA do Dia #003</div>
+        <div class="post-sub">ElevenLabs — clone de voz</div>
+      </div>
+      <div class="post story">
+        <div class="post-title">Story: Demo</div>
+        <div class="post-sub">Clonando minha voz ao vivo</div>
+      </div>
+    </div>
+
+    <!-- Wed Feb 19 -->
+    <div class="day">
+      <div class="day-number" data-dow="QUA">19 fev</div>
+      <div class="post hot-take">
+        <div class="post-title">🔥 Hot Take #002</div>
+        <div class="post-sub">Cursos de IA são golpe</div>
+      </div>
+    </div>
+
+    <!-- Thu Feb 20 -->
+    <div class="day">
+      <div class="day-number" data-dow="QUI">20 fev</div>
+      <div class="post licao">
+        <div class="post-title">Lição #004</div>
+        <div class="post-sub">Alucinação: IA que inventa</div>
+      </div>
+      <div class="post story">
+        <div class="post-title">Story: Enquete</div>
+        <div class="post-sub">"Já caiu em info falsa de IA?"</div>
+      </div>
+    </div>
+
+    <!-- Fri Feb 21 -->
+    <div class="day">
+      <div class="day-number" data-dow="SEX">21 fev</div>
+      <div class="post hot-take">
+        <div class="post-title">🔥 Hot Take #003</div>
+        <div class="post-sub">Sênior > 5 juniors com IA</div>
+      </div>
+    </div>
+
+    <!-- Sat Feb 22 -->
+    <div class="day">
+      <div class="day-number" data-dow="SÁB">22 fev</div>
+      <div class="post licao">
+        <div class="post-title">Lição #005</div>
+        <div class="post-sub">FOMO de ferramentas de IA</div>
+      </div>
+      <div class="post reel">
+        <div class="post-title">🎬 Reel: Top ferramentas</div>
+        <div class="post-sub">3 ferramentas que uso todo dia</div>
+      </div>
+    </div>
+
+    <!-- Sun Feb 23 -->
+    <div class="day rest">
+      <div class="day-number" data-dow="DOM">23 fev</div>
+      <div class="post story">
+        <div class="post-title">Story: Recap</div>
+        <div class="post-sub">Semana 2 em números</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="notes">
+  <h3>📝 Notas da Estratégia</h3>
+  <ul>
+    <li><span class="emoji">📌</span><strong>Cadência:</strong> 5 posts de feed/semana (SEG/TER/QUI/SEX/SÁB) + stories diários</li>
+    <li><span class="emoji">🎯</span><strong>Melhor horário:</strong> 12h-13h (almoço) ou 19h-20h (pós-trabalho) — testar ambos</li>
+    <li><span class="emoji">🔄</span><strong>Formato alternado:</strong> Lição → IA do Dia → Hot Take (evita repetição)</li>
+    <li><span class="emoji">📸</span><strong>Todos os posts prontos:</strong> 5× Lição + 3× IA do Dia + 5× Hot Take = 13 imagens com captions</li>
+    <li><span class="emoji">🎬</span><strong>Reels (face-to-camera):</strong> Precisam ser gravados por Ricardo — roteiros prontos, gravar no sábado</li>
+    <li><span class="emoji">⏱️</span><strong>Blocker:</strong> Ricardo precisa escolher visual direction final no moodboard antes de postar</li>
+    <li><span class="emoji">🦆</span><strong>Pato:</strong> Aparece como elemento visual sutil nos posts, nunca como protagonista</li>
+    <li><span class="emoji">📊</span><strong>Meta semana 1:</strong> ≥200 likes no melhor post, ≥5 saves, ≥3 comments reais (não bots)</li>
+  </ul>
+</div>
+
+</body>
+</html>
