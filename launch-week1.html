@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>🚀 Week 1 Launch — @rpedroni</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0a;
+      --card: #161616;
+      --border: rgba(255,255,255,0.08);
+      --accent: #06d6a0;
+      --hot: #ff6b6b;
+      --ia: #4ecdc4;
+      --licao: #a78bfa;
+      --text: #fff;
+      --dim: #777;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 1.4rem; margin-bottom: 4px; }
+    .sub { color: var(--dim); font-size: 0.85rem; margin-bottom: 20px; }
+    .day-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .day-card.today {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(6, 214, 160, 0.1);
+    }
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .day-label {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .format-badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .format-hot { background: rgba(255,107,107,0.15); color: var(--hot); }
+    .format-ia { background: rgba(78,205,196,0.15); color: var(--ia); }
+    .format-licao { background: rgba(167,139,250,0.15); color: var(--licao); }
+    .post-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .post-file {
+      font-size: 0.75rem;
+      color: var(--dim);
+      font-family: monospace;
+      margin-bottom: 10px;
+    }
+    .caption-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      display: none;
+      position: relative;
+    }
+    .caption-box.show { display: block; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: rgba(255,255,255,0.1); }
+    .btn-copy {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      font-weight: 600;
+    }
+    .btn-copy.copied {
+      background: #4ecdc4;
+    }
+    .checklist {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+      font-size: 0.8rem;
+      color: var(--dim);
+    }
+    .check-item input[type="checkbox"] {
+      accent-color: var(--accent);
+    }
+    .check-item.done { text-decoration: line-through; opacity: 0.5; }
+    .times {
+      text-align: center;
+      padding: 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+    }
+    .times strong { color: var(--accent); }
+    .progress {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+    .progress-dot {
+      flex: 1;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.1);
+    }
+    .progress-dot.done { background: var(--accent); }
+    .progress-dot.current { background: var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 Week 1 — @rpedroni</h1>
+  <p class="sub">Feb 9–15, 2026 • Launch week</p>
+
+  <div class="progress" id="progress">
+    <div class="progress-dot" data-day="0"></div>
+    <div class="progress-dot" data-day="1"></div>
+    <div class="progress-dot" data-day="2"></div>
+    <div class="progress-dot" data-day="3"></div>
+    <div class="progress-dot" data-day="4"></div>
+    <div class="progress-dot" data-day="5"></div>
+    <div class="progress-dot" data-day="6"></div>
+  </div>
+
+  <div class="times">
+    Post between <strong>11:00–13:00</strong> or <strong>18:00–20:00</strong> BRT
+  </div>
+
+  <div id="cards"></div>
+
+  <script>
+    const schedule = [
+      {
+        day: 'SEG 9', format: 'hot', label: 'Hot Take',
+        title: '#001 — "IA pra e-mail de 3 linhas"',
+        file: 'hot-take/hot-take-001.png',
+        caption: `🔥 Hot Take #001
+
+Se você precisa de IA pra escrever um e-mail de 3 linhas, o problema não é produtividade.
+
+O gap de comunicação não se resolve com autocomplete. Se resolve com clareza de pensamento.
+
+Antes de abrir o ChatGPT, tenta pensar 30 segundos no que você quer dizer. Se conseguir — parabéns, você não precisava de IA. Se não conseguir — o problema é maior do que qualquer ferramenta resolve.
+
+IA é um amplificador. Se você não sabe o que quer comunicar, ela amplifica a confusão.
+
+#IA #Comunicação #Produtividade #HotTake #Reflexão`
+      },
+      {
+        day: 'TER 10', format: 'ia', label: 'IA do Dia',
+        title: '#001 — ChatGPT',
+        file: 'ia-do-dia/001-chatgpt-hq.png',
+        caption: `🤖 IA do Dia #001 — ChatGPT
+
+Você provavelmente já usa. Mas usa 10% do que ele faz.
+
+ChatGPT não é só "pergunta e resposta". Ele analisa planilhas, lê PDFs, gera imagens, escreve na sua voz, e cria assistentes personalizados (GPTs) pra qualquer tarefa repetitiva.
+
+Minha dica: para de usar ele como Google. Começa a usar como um estagiário genial — dá contexto, pede pra revisar, manda ele refazer. A qualidade sobe 10x.
+
+Versão grátis já é absurda. O Plus ($20/mês) vale se você usa todo dia pro trabalho.
+
+Veredito: a canivete suíço da IA. Não é a melhor em nada, mas é boa em quase tudo.
+
+🔗 chatgpt.com
+
+#IA #ChatGPT #Produtividade #Ferramentas #Dicas`
+      },
+      {
+        day: 'QUA 11', format: 'licao', label: 'Lição de IA',
+        title: '#001 — "IA vai roubar seu emprego"',
+        file: 'licao-de-ia/001-v3-hq.png',
+        caption: `🤖 Lição de IA #001
+
+Todo mundo repete essa frase: "a IA não vai roubar seu emprego, quem usa IA vai."
+
+Mas será?
+
+Na real, depende do emprego. Se o que você faz é repetitivo, previsível, template-based — sim, a IA já está fazendo. Não "vai fazer". Já faz.
+
+Mas se você PENSA, se você toma decisões com contexto, se você entende o POR QUÊ — aí é diferente.
+
+A lição de verdade: não basta "usar a IA". Tem que entender o suficiente pra saber quando ela tá errada.
+
+Salva esse post. Semana que vem tem mais. 🦆
+
+#IA #InteligenciaArtificial #Tecnologia #Carreira #FuturoDoTrabalho`
+      },
+      {
+        day: 'QUI 12', format: 'hot', label: 'Hot Take',
+        title: '#002 — "Profissionais -17% com IA passiva"',
+        file: 'hot-take/hot-take-002.png',
+        caption: `🔥 Hot Take #002
+
+Profissionais que usam IA passivamente sabem 17% MENOS que quem não usa.
+
+Estudo da Anthropic (Jan 2026): aceitar tudo que a IA gera sem pensar te atrofia. Usar IA pra ENTENDER melhor o que você faz, não.
+
+A diferença entre "copiei a resposta do ChatGPT e colei no e-mail" e "pedi pro ChatGPT me ajudar a pensar, entendi a lógica, e escrevi eu mesmo" é enorme. A primeira te torna dependente. A segunda te torna melhor.
+
+Funciona igual pra tudo: relatório, proposta, análise, apresentação. Se você tá só dando Ctrl+V — para. Lê a resposta. Pergunta "por quê?". Aí sim usa.
+
+IA é academia pro cérebro. Mas só se VOCÊ levantar o peso.
+
+#IA #Produtividade #Carreira #Trabalho #HotTake`
+      },
+      {
+        day: 'SEX 13', format: 'ia', label: 'IA do Dia',
+        title: '#002 — Perplexity',
+        file: 'ia-do-dia/002-hq.png',
+        caption: `🤖 IA do Dia #002 — Perplexity
+
+Imagina se o Google entendesse sua pergunta de verdade, buscasse as melhores fontes, e te desse a resposta mastigada com referências.
+
+É o Perplexity.
+
+Pra pesquisas técnicas, substituiu o Google completamente no meu workflow. Pra perguntas tipo "melhor restaurante perto de mim" — ainda uso Google Maps. 😅
+
+Dica: a versão grátis já é ótima. Só paga se usar pesado (10+ pesquisas/dia).
+
+🔗 perplexity.ai
+
+#IA #Perplexity #Pesquisa #Google #Ferramentas`
+      },
+      {
+        day: 'SÁB 14', format: 'licao', label: 'Lição de IA',
+        title: '#002',
+        file: 'licao-de-ia/002-hq.png',
+        caption: `🤖 Lição de IA #002
+
+Estudo da Anthropic (Jan 2026): devs que usam IA passivamente tiraram 17% MENOS em testes de competência.
+
+O problema não é usar IA. É usar sem pensar.
+
+Copiar código do ChatGPT ≠ programar. Copiar receita ≠ cozinhar. O valor tá em entender o que tá acontecendo.
+
+Pergunta "por quê?" pro ChatGPT. Peça pra explicar. Não aceite a primeira resposta.
+
+A IA é um tutor fenomenal — SE você fizer as perguntas certas.
+
+#IA #Programação #Dev #ChatGPT #Aprendizado`
+      },
+      {
+        day: 'DOM 15', format: 'hot', label: 'Hot Take',
+        title: '#003 — "Cursos de prompt = R$2k jogados"',
+        file: 'hot-take/hot-take-003.png',
+        caption: `🔥 Hot Take #003
+
+O melhor curso de IA custa R$0 e se chama "abrir o ChatGPT e tentar".
+
+Nenhum certificado substitui 30 dias usando a ferramenta no seu trabalho real. Ponto.
+
+Vi gente gastando R$2.000 em curso de prompt engineering pra aprender a escrever "aja como um especialista em...". Isso não é skill — é formato.
+
+A skill de verdade é saber QUAL problema resolver e COMO avaliar se a resposta tá boa. Isso vem de experiência no seu domínio, não de um PDF sobre prompts.
+
+Para de estudar IA. Começa a USAR IA.
+
+#IA #Cursos #Aprendizado #ChatGPT #HotTake`
+      }
+    ];
+
+    const container = document.getElementById('cards');
+    const startDate = new Date(2026, 1, 9); // Feb 9
+    const now = new Date();
+    const dayIndex = Math.floor((now - startDate) / 86400000);
+
+    // Progress dots
+    document.querySelectorAll('.progress-dot').forEach(dot => {
+      const d = parseInt(dot.dataset.day);
+      if (d < dayIndex) dot.classList.add('done');
+      else if (d === dayIndex) dot.classList.add('current');
+    });
+
+    schedule.forEach((post, i) => {
+      const isToday = i === dayIndex;
+      const card = document.createElement('div');
+      card.className = `day-card${isToday ? ' today' : ''}`;
+      card.innerHTML = `
+        <div class="day-header">
+          <span class="day-label">${isToday ? '📍 HOJE — ' : ''}${post.day}</span>
+          <span class="format-badge format-${post.format}">${post.label}</span>
+        </div>
+        <div class="post-title">${post.title}</div>
+        <div class="post-file">📁 outputs/${post.file}</div>
+        <button class="btn" onclick="toggleCaption(${i})">📋 Ver legenda</button>
+        <div class="caption-box" id="caption-${i}">
+          <button class="btn btn-copy" onclick="copyCaption(${i}, event)">Copiar</button>
+          ${post.caption}
+        </div>
+        <div class="checklist">
+          <label class="check-item"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"> Upload imagem no Instagram</label>
+          <label class="check-item"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"> Colar legenda</label>
+          <label class="check-item"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"> Compartilhar nos Stories</label>
+          <label class="check-item"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"> Responder primeiros comentários (1h)</label>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    function toggleCaption(i) {
+      document.getElementById(`caption-${i}`).classList.toggle('show');
+    }
+
+    function copyCaption(i, e) {
+      e.stopPropagation();
+      const text = schedule[i].caption;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = e.target;
+        btn.textContent = '✅ Copiado!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+
+    // Scroll to today
+    const todayCard = document.querySelector('.day-card.today');
+    if (todayCard) todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  </script>
+</body>
+</html>
