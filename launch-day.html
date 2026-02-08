@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>🚀 Launch Day — Feb 9</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0a; --surface: #111; --card: #161616; --border: #222;
+      --primary: #ffd700; --accent: #06d6a0; --red: #ff4757;
+      --text: #f5f5f5; --dim: #666;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; padding: 16px; max-width: 500px; margin: 0 auto;
+    }
+    h1 { font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
+    .sub { color: var(--dim); font-size: 0.8rem; margin-bottom: 20px; }
+    .countdown { 
+      background: linear-gradient(135deg, #1a1500, #0a0a0a);
+      border: 1px solid var(--primary); border-radius: 12px;
+      padding: 16px; text-align: center; margin-bottom: 20px;
+    }
+    .countdown .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); }
+    .countdown .time { font-size: 2rem; font-weight: 900; color: var(--primary); font-variant-numeric: tabular-nums; }
+    
+    .phase { margin-bottom: 20px; }
+    .phase-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 0; border-bottom: 1px solid var(--border);
+      margin-bottom: 10px;
+    }
+    .phase-time { 
+      font-size: 0.7rem; font-weight: 700; color: var(--primary);
+      background: rgba(255,215,0,0.1); padding: 2px 8px; border-radius: 4px;
+      white-space: nowrap;
+    }
+    .phase-title { font-size: 0.9rem; font-weight: 700; }
+    
+    .task {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px; margin-bottom: 6px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; cursor: pointer; transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .task.done { opacity: 0.4; border-color: var(--accent); }
+    .task.done .check { background: var(--accent); border-color: var(--accent); }
+    .task.done .check::after { content: '✓'; color: #000; font-size: 12px; font-weight: 900; }
+    .check {
+      width: 22px; height: 22px; min-width: 22px;
+      border: 2px solid var(--dim); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .task-text { font-size: 0.82rem; line-height: 1.4; }
+    .task-text .hint { display: block; color: var(--dim); font-size: 0.72rem; margin-top: 2px; }
+    
+    .caption-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px; margin: 12px 0;
+      font-size: 0.78rem; line-height: 1.5; white-space: pre-wrap;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute; top: 8px; right: 8px;
+      background: var(--primary); color: #000; border: none;
+      padding: 4px 10px; border-radius: 4px; font-size: 0.7rem;
+      font-weight: 700; cursor: pointer;
+    }
+    .copy-btn.copied { background: var(--accent); }
+
+    .algo-tips {
+      background: rgba(255,215,0,0.05); border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 8px; padding: 12px; margin-bottom: 20px;
+    }
+    .algo-tips h3 { font-size: 0.8rem; color: var(--primary); margin-bottom: 8px; }
+    .algo-tips li { font-size: 0.75rem; color: var(--dim); margin-bottom: 4px; list-style: none; }
+    .algo-tips li::before { content: '⚡ '; }
+
+    .progress-bar {
+      width: 100%; height: 4px; background: var(--border);
+      border-radius: 2px; margin-bottom: 20px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: var(--primary);
+      border-radius: 2px; transition: width 0.3s;
+    }
+    
+    .metrics-form { margin-top: 20px; }
+    .metrics-form h3 { font-size: 0.9rem; margin-bottom: 10px; }
+    .metric-row {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 8px;
+    }
+    .metric-row label { font-size: 0.78rem; color: var(--dim); min-width: 80px; }
+    .metric-row input {
+      flex: 1; background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; padding: 8px 10px; color: var(--text);
+      font-size: 0.85rem; font-variant-numeric: tabular-nums;
+    }
+    .save-btn {
+      width: 100%; background: var(--primary); color: #000;
+      border: none; padding: 12px; border-radius: 8px;
+      font-weight: 700; font-size: 0.9rem; cursor: pointer;
+      margin-top: 12px;
+    }
+    .save-btn.saved { background: var(--accent); }
+    
+    .reset-link {
+      display: block; text-align: center; margin-top: 16px;
+      color: var(--dim); font-size: 0.7rem; cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🚀 Launch Day</h1>
+<p class="sub">Hot Take #001 — Mon, Feb 9, 2026</p>
+
+<div class="countdown">
+  <div class="label">Post time countdown</div>
+  <div class="time" id="countdown">--:--:--</div>
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+
+<div class="algo-tips">
+  <h3>🧠 Algorithm Cheat Sheet (2026)</h3>
+  <ul>
+    <li>DM Shares (Sends) = #1 ranking signal</li>
+    <li>Saves = strong value signal</li>
+    <li>First 60 min = determines reach trajectory</li>
+    <li>Reply as CONVERSATION, not just "obrigado!"</li>
+    <li>Hot Takes designed for Sends → "manda pro fulano"</li>
+  </ul>
+</div>
+
+<div id="tasks"></div>
+
+<div class="metrics-form" id="metricsSection" style="display:none">
+  <h3>📊 Day 1 Metrics (fill at 22:00)</h3>
+  <div class="metric-row"><label>Reach</label><input type="number" id="m_reach" placeholder="0"></div>
+  <div class="metric-row"><label>Likes</label><input type="number" id="m_likes" placeholder="0"></div>
+  <div class="metric-row"><label>Comments</label><input type="number" id="m_comments" placeholder="0"></div>
+  <div class="metric-row"><label>Saves</label><input type="number" id="m_saves" placeholder="0"></div>
+  <div class="metric-row"><label>Shares</label><input type="number" id="m_shares" placeholder="0"></div>
+  <div class="metric-row"><label>Profile visits</label><input type="number" id="m_visits" placeholder="0"></div>
+  <div class="metric-row"><label>New follows</label><input type="number" id="m_follows" placeholder="0"></div>
+  <button class="save-btn" id="saveMetrics">Save Metrics</button>
+</div>
+
+<div class="reset-link" onclick="if(confirm('Reset all progress?')){localStorage.removeItem('ld');location.reload()}">Reset checklist</div>
+
+<script>
+const CAPTION = `🔥 Hot Take #001
+
+Se você precisa de IA pra escrever um e-mail de 3 linhas, o problema não é produtividade.
+
+O gap de comunicação não se resolve com autocomplete. Se resolve com clareza de pensamento.
+
+Antes de abrir o ChatGPT, tenta pensar 30 segundos no que você quer dizer. Se conseguir — parabéns, você não precisava de IA. Se não conseguir — o problema é maior do que qualquer ferramenta resolve.
+
+IA é um amplificador. Se você não sabe o que quer comunicar, ela amplifica a confusão.
+
+#IA #Comunicação #Produtividade #HotTake #Reflexão`;
+
+const HASHTAGS = '#IA #Comunicação #Produtividade #HotTake #Reflexão';
+
+const phases = [
+  {
+    time: '08:00', title: '🌅 Warm-Up',
+    tasks: [
+      { text: 'Post 2-3 Stories', hint: '"algo novo chegando hoje" / behind-the-scenes' },
+      { text: 'Check bio link → lab landing page', hint: 'rpedroni.com.br/project-rpedroni-social/landing/' },
+    ]
+  },
+  {
+    time: '11:30', title: '🔥 THE POST',
+    tasks: [
+      { text: 'Upload hot-take-001.png to IG feed', hint: 'Copy caption below 👇' },
+      { text: 'Add hashtags', hint: HASHTAGS },
+      { text: 'Add location: Curitiba, Paraná', hint: 'Helps local discovery' },
+      { text: 'Share to Stories', hint: 'Text overlay "🔥 novo post" + link sticker' },
+    ]
+  },
+  {
+    time: '11:30–12:30', title: '⚡ Engagement Window (Critical!)',
+    tasks: [
+      { text: 'Reply to EVERY comment', hint: 'Ask follow-up questions to drive threads' },
+      { text: 'Check hashtag feeds', hint: 'Is the post showing up?' },
+      { text: 'Check DMs', hint: 'Any shares? Screenshot interesting ones' },
+    ]
+  },
+  {
+    time: '15:00–17:00', title: '📱 Afternoon Push',
+    tasks: [
+      { text: 'Second Story pointing to post', hint: 'Monday afternoon = peak #2' },
+      { text: 'Reply to new comments', hint: 'Keep threads alive' },
+    ]
+  },
+  {
+    time: '18:00–19:00', title: '🌙 Evening Push',
+    tasks: [
+      { text: 'Final Story push', hint: 'Monday evening = strongest peak per 2026 data' },
+      { text: 'Respond to remaining comments/DMs', hint: '' },
+    ]
+  },
+  {
+    time: '22:00', title: '📊 Day 1 Wrap',
+    tasks: [
+      { text: 'Log Day 1 metrics below ↓', hint: 'Even 100 reach is a win. Data starts now.' },
+      { text: 'Screenshot interesting DMs for future content', hint: '' },
+    ]
+  }
+];
+
+const state = JSON.parse(localStorage.getItem('ld') || '{"done":{}}');
+function save() { localStorage.setItem('ld', JSON.stringify(state)); }
+
+const container = document.getElementById('tasks');
+let totalTasks = 0;
+let taskIdx = 0;
+
+phases.forEach((phase, pi) => {
+  let html = `<div class="phase">
+    <div class="phase-header">
+      <span class="phase-time">${phase.time}</span>
+      <span class="phase-title">${phase.title}</span>
+    </div>`;
+  
+  phase.tasks.forEach((task, ti) => {
+    const id = `t${pi}_${ti}`;
+    const done = state.done[id] || false;
+    totalTasks++;
+    html += `<div class="task ${done?'done':''}" data-id="${id}">
+      <div class="check">${done?'':'&nbsp;'}</div>
+      <div class="task-text">${task.text}${task.hint?`<span class="hint">${task.hint}</span>`:''}</div>
+    </div>`;
+  });
+
+  // Caption box after THE POST phase
+  if (pi === 1) {
+    html += `<div class="caption-box" id="captionBox">
+      <button class="copy-btn" id="copyBtn" onclick="copyCaption(event)">COPY</button>
+      ${CAPTION.replace(/\n/g,'<br>')}
+    </div>`;
+  }
+  
+  html += '</div>';
+  container.innerHTML += html;
+});
+
+// Task click handler
+document.querySelectorAll('.task').forEach(el => {
+  el.addEventListener('click', () => {
+    const id = el.dataset.id;
+    state.done[id] = !state.done[id];
+    el.classList.toggle('done');
+    const check = el.querySelector('.check');
+    check.innerHTML = state.done[id] ? '' : '&nbsp;';
+    save();
+    updateProgress();
+    
+    // Show metrics section when last phase tasks are checked
+    const doneCount = Object.values(state.done).filter(Boolean).length;
+    if (doneCount >= totalTasks - 2) {
+      document.getElementById('metricsSection').style.display = 'block';
+    }
+  });
+});
+
+function updateProgress() {
+  const doneCount = Object.values(state.done).filter(Boolean).length;
+  const pct = Math.round((doneCount / totalTasks) * 100);
+  document.getElementById('progress').style.width = pct + '%';
+}
+updateProgress();
+
+// Show metrics if mostly done
+if (Object.values(state.done).filter(Boolean).length >= totalTasks - 2) {
+  document.getElementById('metricsSection').style.display = 'block';
+}
+
+function copyCaption(e) {
+  e.stopPropagation();
+  navigator.clipboard.writeText(CAPTION).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ COPIED';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// Countdown to 11:30 BRT
+function updateCountdown() {
+  const now = new Date();
+  // Target: Feb 9, 2026 11:30 BRT (UTC-3)
+  const target = new Date('2026-02-09T14:30:00Z'); // 11:30 BRT = 14:30 UTC
+  const diff = target - now;
+  
+  if (diff <= 0) {
+    document.getElementById('countdown').textContent = '🔥 GO GO GO!';
+    return;
+  }
+  
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('countdown').textContent = 
+    `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Metrics save
+document.getElementById('saveMetrics').addEventListener('click', () => {
+  const metrics = {
+    date: '2026-02-09',
+    post: 'hot-take-001',
+    reach: document.getElementById('m_reach').value || 0,
+    likes: document.getElementById('m_likes').value || 0,
+    comments: document.getElementById('m_comments').value || 0,
+    saves: document.getElementById('m_saves').value || 0,
+    shares: document.getElementById('m_shares').value || 0,
+    profileVisits: document.getElementById('m_visits').value || 0,
+    newFollows: document.getElementById('m_follows').value || 0,
+  };
+  state.metrics = metrics;
+  save();
+  const btn = document.getElementById('saveMetrics');
+  btn.textContent = '✓ Saved!';
+  btn.classList.add('saved');
+  setTimeout(() => { btn.textContent = 'Save Metrics'; btn.classList.remove('saved'); }, 2000);
+});
+
+// Restore metrics if saved
+if (state.metrics) {
+  Object.entries(state.metrics).forEach(([k,v]) => {
+    const el = document.getElementById('m_' + k);
+    if (el) el.value = v;
+  });
+}
+</script>
+
+</body>
+</html>
