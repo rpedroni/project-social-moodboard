@@ -84,15 +84,20 @@
 3. **Descript** — Edit video by editing text. Content creators love it.
 4. **Otter.ai** — AI meeting notes. Universal for professionals.
 
-## ⚠️ Rework Queue (7 posts)
-Each needs non-dev analogies and examples. Core insights stay, framing changes:
-- Hot Take #002: "passive AI = atrophy" → generalize beyond devs
-- Lição #002: "using AI without thinking" → use non-code examples
-- Hot Take #004: "expertise × AI" → professionals, not just seniors devs
-- Hot Take #006: "wrappers" → "most AI tools just resell ChatGPT with a pretty interface"
-- IA do Dia #005: v0 → reframe as "create websites without coding" (actually non-tech!)
-- Lição #003: "generic prompts" → use everyday examples (planning a trip, writing a resume)
-- Lição #005: "tool FOMO" → simplify tool list to non-dev ones
+## ✅ Rework Queue — COMPLETE (7/7 done, Feb 7 21:00)
+All reworked captions in `CAPTIONS-REWORKED.md` files alongside originals.
+
+- ✅ Hot Take #002: "passive AI = atrophy" → universal professional (e-mail, relatório, proposta)
+- ✅ Lição #002: "copiar código" → "copiar texto", relatório/e-mail examples
+- ✅ Hot Take #004: "senior devs × AI" → "quem domina seu ofício" (marketing/vendas example)
+- ✅ Hot Take #006: "wrappers" → "ChatGPT com outra roupa" (água da torneira em garrafa artesanal)
+- ✅ IA do Dia #005: v0 → "crie sites sem programar" (landing pages, cardápios, portfólios)
+- ✅ Lição #003: TypeScript/Hono/SQLite → currículo de marketing (everyday example)
+- ✅ Lição #005: Cursor/Copilot/v0 → ChatGPT/Claude/Perplexity/Midjourney (consumer tools)
+
+### ❌ Replacements — COMPLETE (2/2)
+- ✅ IA do Dia #001: Cursor → **ChatGPT** (done 20:00)
+- ✅ IA do Dia #006: Windsurf → **Suno** (AI music, done 21:00)
 
 ---
 
