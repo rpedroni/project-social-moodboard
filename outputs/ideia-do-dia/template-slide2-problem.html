@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px;
+  height: 1350px;
+  background: #0a0a0a;
+  font-family: 'DM Sans', sans-serif;
+  color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+  position: relative;
+  overflow: hidden;
+}
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 215, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 215, 0, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: rgba(255, 215, 0, 0.5);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 56px;
+}
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffd700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.section-text {
+  font-size: 32px;
+  line-height: 1.5;
+  color: rgba(245, 245, 245, 0.85);
+  font-weight: 400;
+}
+.divider {
+  width: 60px;
+  height: 2px;
+  background: rgba(255, 215, 0, 0.3);
+}
+.bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 215, 0, 0.1);
+}
+.handle {
+  color: rgba(245, 245, 245, 0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+}
+.dots {
+  display: flex;
+  gap: 8px;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.2);
+}
+.dot.active {
+  background: #ffd700;
+  width: 24px;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+  <div class="section-label">💡 Ideia #001 — slide 2/4</div>
+  
+  <div class="main-content">
+    <div class="section">
+      <div class="section-title">🔴 O problema</div>
+      <div class="section-text">
+        Você recebe o PDF do laboratório, olha aqueles números e siglas... e não entende nada. Marca consulta só pra ouvir "tá tudo normal". Ou pior: ignora e guarda na gaveta.
+      </div>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <div class="section">
+      <div class="section-title">💡 A ideia</div>
+      <div class="section-text">
+        App que lê o PDF do exame, identifica o que tá fora da faixa, e te explica em linguagem simples: o que significa, se é urgente, e quais perguntas fazer pro médico.
+      </div>
+    </div>
+  </div>
+  
+  <div class="bottom-bar">
+    <span class="handle">@rpedroni</span>
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+</body>
+</html>

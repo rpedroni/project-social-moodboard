@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px;
+  height: 1350px;
+  background: #0a0a0a;
+  font-family: 'DM Sans', sans-serif;
+  color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+  position: relative;
+  overflow: hidden;
+}
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 215, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 215, 0, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: rgba(255, 215, 0, 0.5);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 56px;
+}
+.verdict-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  color: rgba(255, 215, 0, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+.verdict-text {
+  font-size: 36px;
+  line-height: 1.4;
+  color: rgba(245, 245, 245, 0.8);
+  max-width: 800px;
+}
+.score-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.score-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: rgba(255, 215, 0, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+.score-display {
+  font-size: 120px;
+  font-weight: 700;
+  color: #ffd700;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1;
+}
+.score-max {
+  font-size: 36px;
+  color: rgba(255, 215, 0, 0.3);
+}
+.cta-box {
+  background: rgba(255, 215, 0, 0.08);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 16px;
+  padding: 40px 60px;
+  text-align: center;
+}
+.cta-question {
+  font-size: 40px;
+  font-weight: 700;
+  color: #f5f5f5;
+  margin-bottom: 16px;
+}
+.cta-instruction {
+  font-size: 22px;
+  color: rgba(245, 245, 245, 0.5);
+}
+.cta-instruction .gold {
+  color: #ffd700;
+}
+.bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 215, 0, 0.1);
+}
+.handle {
+  color: rgba(245, 245, 245, 0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+}
+.dots {
+  display: flex;
+  gap: 8px;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.2);
+}
+.dot.active {
+  background: #ffd700;
+  width: 24px;
+  border-radius: 4px;
+}
+.follow-cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: rgba(255, 215, 0, 0.4);
+  letter-spacing: 2px;
+  margin-top: 12px;
+}
+</style>
+</head>
+<body>
+  <div class="section-label">💡 Ideia #001 — slide 4/4</div>
+  
+  <div class="main-content">
+    <div class="verdict-label">🎯 meu veredito</div>
+    <div class="verdict-text">
+      Dor real, mercado gigante, e a IA já sabe fazer isso. Falta alguém empacotar bonito pro Brasil. O SUS manda PDF — é só ler.
+    </div>
+    
+    <div class="score-section">
+      <div class="score-label">nota de viabilidade</div>
+      <div class="score-display">8<span class="score-max">/10</span></div>
+    </div>
+    
+    <div class="cta-box">
+      <div class="cta-question">Nota de 1 a 10?</div>
+      <div class="cta-instruction">Comenta sua nota 👇 <span class="gold">salva</span> pra quando precisar de uma ideia</div>
+    </div>
+    
+    <div class="follow-cta">📩 segue @rpedroni — 1 ideia/dia</div>
+  </div>
+  
+  <div class="bottom-bar">
+    <span class="handle">@rpedroni</span>
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot active"></div>
+    </div>
+  </div>
+</body>
+</html>

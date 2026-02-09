@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px;
+  height: 1350px;
+  background: #0a0a0a;
+  font-family: 'DM Sans', sans-serif;
+  color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+  position: relative;
+  overflow: hidden;
+}
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 215, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 215, 0, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: rgba(255, 215, 0, 0.5);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 48px;
+}
+.step-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffd700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 32px;
+}
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+.step-number {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 24px;
+  color: #ffd700;
+}
+.step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+}
+.step-headline {
+  font-size: 26px;
+  font-weight: 600;
+  color: #f5f5f5;
+}
+.step-desc {
+  font-size: 22px;
+  color: rgba(245, 245, 245, 0.55);
+  line-height: 1.4;
+}
+.meta-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 16px;
+  padding: 24px;
+  background: rgba(255, 215, 0, 0.04);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: 12px;
+}
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.meta-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: rgba(255, 215, 0, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.meta-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgba(245, 245, 245, 0.8);
+}
+.bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 215, 0, 0.1);
+}
+.handle {
+  color: rgba(245, 245, 245, 0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+}
+.dots {
+  display: flex;
+  gap: 8px;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.2);
+}
+.dot.active {
+  background: #ffd700;
+  width: 24px;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+  <div class="section-label">💡 Ideia #001 — slide 3/4</div>
+  
+  <div class="main-content">
+    <div class="step-title">⚡ Como funcionaria</div>
+    
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <div class="step-headline">Fotografa ou importa o PDF</div>
+        <div class="step-desc">Câmera ou upload direto do e-mail do lab</div>
+      </div>
+    </div>
+    
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <div class="step-headline">IA analisa os marcadores</div>
+        <div class="step-desc">Compara com valores de referência e teu histórico</div>
+      </div>
+    </div>
+    
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <div class="step-headline">Recebe o resumo em PT-BR</div>
+        <div class="step-desc">O que tá bom, o que precisa de atenção, e o que perguntar pro médico</div>
+      </div>
+    </div>
+    
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-label">Dificuldade</span>
+        <span class="meta-value">⚡⚡ Média</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Mercado</span>
+        <span class="meta-value">👥 Todo adulto com plano de saúde</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Monetização</span>
+        <span class="meta-value">💰 Freemium + assinatura</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="bottom-bar">
+    <span class="handle">@rpedroni</span>
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+</body>
+</html>
