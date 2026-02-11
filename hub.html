@@ -175,6 +175,20 @@
     .format-hot { background: rgba(255,107,107,0.15); color: var(--hot); }
     .format-ia { background: rgba(78,205,196,0.15); color: var(--ia); }
     .format-licao { background: rgba(167,139,250,0.15); color: var(--licao); }
+    .format-ideia { background: rgba(255,215,0,0.18); color: var(--gold); }
+    .format-voce-ja { background: rgba(232,121,249,0.18); color: #e879f9; }
+    
+    .post-image-placeholder {
+      width: 100%;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: rgba(255,255,255,0.3);
+      user-select: none;
+    }
     
     .post-status {
       font-size: 0.85rem;
@@ -562,9 +576,24 @@
             </div>
           </div>
 
+          <!-- Locked Formats -->
+          <div style="margin-bottom: 16px;">
+            <div style="font-weight: 600; color: var(--gold); margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">🔒 Formatos Travados (v2)</div>
+            <div style="display: grid; gap: 8px;">
+              <div style="background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.2); border-radius: 8px; padding: 10px 12px;">
+                <div style="font-weight: 600; color: var(--gold);">💡 Ideia do Dia <span style="font-weight: 400; color: var(--dim); font-size: 0.8rem;">— 3x/semana</span></div>
+                <div style="color: var(--dim); margin-top: 4px;">Carrossel 3-4 slides. Hook provocativo → problema → solução/ideia → CTA polarizante pra sends. Objetivo: crescimento + compartilhamento.</div>
+              </div>
+              <div style="background: rgba(232,121,249,0.08); border: 1px solid rgba(232,121,249,0.2); border-radius: 8px; padding: 10px 12px;">
+                <div style="font-weight: 600; color: #e879f9;">❓ Você Já...? <span style="font-weight: 400; color: var(--dim); font-size: 0.8rem;">— 1-2x/semana</span></div>
+                <div style="color: var(--dim); margin-top: 4px;">Card único ou mini-carrossel (2 slides). Formato de descoberta de problema — engajamento via identificação. Valida dores reais pra futuras ideias.</div>
+              </div>
+            </div>
+          </div>
+
           <!-- Format Stats -->
           <div>
-            <div style="font-weight: 600; color: var(--gold); margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">📐 Formato: Por que Carrossel?</div>
+            <div style="font-weight: 600; color: var(--gold); margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">📐 Por que Carrossel?</div>
             <div style="color: var(--dim); display: grid; gap: 4px;">
               <div>• <strong>~10% engagement rate</strong> (vs ~3-5% single image, ~2-3% Reels)</div>
               <div>• Segunda chance do algoritmo: não swipou → IG mostra slide 2 depois</div>
@@ -882,6 +911,167 @@ Uso pra resumir papers técnicos, consolidar pesquisas, e até revisar contratos
 🔗 notebooklm.google
 
 #IA #NotebookLM #Pesquisa #Produtividade #Ferramentas`
+      },
+      // ===== Você Já...? =====
+      {
+        date: '2026-02-23',
+        format: 'voce-ja',
+        emoji: '❓',
+        title: 'Você já pagou por app que esqueceu de cancelar?',
+        images: [],
+        placeholder: '❓',
+        caption: `❓ Você já pagou por app que esqueceu de cancelar?
+
+Aquele free trial de 7 dias que virou 6 meses de cobrança no cartão.
+
+Você não é desorganizado. O modelo de negócio CONTA com você esquecer.
+
+Já aconteceu com você? Conta nos comentários quanto já perdeu assim 💸
+
+#VoceJa #Assinaturas #Dinheiro #Tecnologia`
+      },
+      {
+        date: '2026-02-25',
+        format: 'voce-ja',
+        emoji: '❓',
+        title: 'Você já perdeu uma hora procurando um arquivo no computador?',
+        images: [],
+        placeholder: '❓',
+        caption: `❓ Você já perdeu uma hora procurando um arquivo no computador?
+
+"Eu JURO que salvei aqui..."
+
+Pastas dentro de pastas dentro de pastas. Desktop cheio. Downloads com 3.000 arquivos. E no fim você refaz do zero porque é mais rápido.
+
+Marca alguém que vive perdendo arquivo 👇
+
+#VoceJa #Produtividade #Organização #Arquivos`
+      },
+      {
+        date: '2026-02-27',
+        format: 'voce-ja',
+        emoji: '❓',
+        title: 'Você já respondeu "tô chegando" sem ter saído de casa?',
+        images: [],
+        placeholder: '❓',
+        caption: `❓ Você já respondeu "tô chegando" sem ter saído de casa?
+
+Todo brasileiro já mandou esse áudio de cueca no sofá.
+
+A gente não mente. A gente gerencia expectativas. 😅
+
+Manda pra aquele amigo que SEMPRE "tá chegando" 📩
+
+#VoceJa #Humor #Comportamento #Brasil`
+      },
+      {
+        date: '2026-03-01',
+        format: 'voce-ja',
+        emoji: '❓',
+        title: 'Você já gastou mais tempo organizando uma planilha do que usando ela?',
+        images: [],
+        placeholder: '❓',
+        caption: `❓ Você já gastou mais tempo organizando uma planilha do que usando ela?
+
+3 horas formatando. Cores perfeitas. Fórmulas lindas.
+
+Abriu uma vez. Nunca mais tocou.
+
+A produtividade fake é a pior droga do profissional moderno.
+
+Se identificou? Comenta "eu" 😂
+
+#VoceJa #Planilhas #Produtividade #Excel`
+      },
+      {
+        date: '2026-03-03',
+        format: 'voce-ja',
+        emoji: '❓',
+        title: 'Você já pesquisou um sintoma no Google e se convenceu que ia morrer?',
+        images: [],
+        placeholder: '❓',
+        caption: `❓ Você já pesquisou um sintoma no Google e se convenceu que ia morrer?
+
+Dor de cabeça → Google → tumor raro → testamento mental → era desidratação.
+
+Dr. Google: formado em pânico, especialista em diagnóstico terminal.
+
+Manda pra quem já se autodiagnosticou com algo absurdo 😂📩
+
+#VoceJa #Saude #Google #Humor`
+      },
+      // ===== Ideia do Dia =====
+      {
+        date: '2026-02-24',
+        format: 'ideia',
+        emoji: '💡',
+        title: 'Ideia do Dia — App que cancela assinaturas esquecidas automaticamente',
+        images: [],
+        placeholder: '💡',
+        slides: [
+          { title: 'Você tá pagando por coisas que nem lembra', body: 'O brasileiro médio gasta R$127/mês em assinaturas. Metade ele esqueceu que tem.' },
+          { title: 'O modelo de negócio CONTA com isso', body: 'Free trial → esquece → cobra. Cancelamento escondido em 7 telas. É design intencional.' },
+          { title: 'E se existisse um app que...', body: 'Conecta no seu banco/cartão. Detecta cobranças recorrentes. Mostra TUDO que você paga. Um tap pra cancelar.' },
+          { title: 'Nota de 1 a 10: vale a pena?', body: 'Comenta sua nota. Manda pra quem vive esquecendo assinatura ativa 💸📩' }
+        ],
+        caption: `💡 Ideia do Dia — App que cancela assinaturas esquecidas
+
+Slide 1: Você tá pagando por coisas que nem lembra
+Slide 2: O modelo de negócio CONTA com isso
+Slide 3: E se existisse um app que detecta e cancela automaticamente?
+Slide 4: Nota de 1 a 10 — vale construir isso?
+
+Manda pra quem vive esquecendo assinatura 📩
+
+#IdeaDoDia #App #Assinaturas #Startup #Tecnologia`
+      },
+      {
+        date: '2026-02-26',
+        format: 'ideia',
+        emoji: '💡',
+        title: 'Ideia do Dia — IA que organiza seus arquivos pela forma como VOCÊ pensa',
+        images: [],
+        placeholder: '💡',
+        slides: [
+          { title: 'Seu computador organiza por PASTA. Seu cérebro não.', body: 'Você pensa por projeto, por contexto, por momento. Não por "Documentos > Trabalho > 2026 > Q1".' },
+          { title: 'O problema não é você', body: 'É que o sistema de arquivos foi inventado em 1960 e nunca mudou. Pastas são a tecnologia de ARMÁRIO aplicada ao digital.' },
+          { title: 'E se uma IA organizasse do SEU jeito?', body: 'Aprende como você busca. Agrupa por contexto. "Aquele PDF que o João mandou semana passada" → achou.' },
+          { title: 'Faria ou não faria?', body: 'Comenta: usaria isso? Manda pra quem tem o Desktop mais bagunçado 📩' }
+        ],
+        caption: `💡 Ideia do Dia — IA que organiza arquivos do SEU jeito
+
+Slide 1: Seu cérebro não pensa em pastas
+Slide 2: O sistema de arquivos é de 1960
+Slide 3: IA que aprende como VOCÊ busca e organiza automaticamente
+Slide 4: Faria ou não faria? Comenta!
+
+Manda pra quem tem o Desktop mais caótico do mundo 📩
+
+#IdeaDoDia #IA #Produtividade #Arquivos #Organização`
+      },
+      {
+        date: '2026-02-28',
+        format: 'ideia',
+        emoji: '💡',
+        title: 'Ideia do Dia — Calculadora de quanto você gasta por ano em coisas que esqueceu',
+        images: [],
+        placeholder: '💡',
+        slides: [
+          { title: 'Quanto dinheiro você JOGOU FORA esse ano?', body: 'Assinaturas esquecidas. Comida que estragou. Multas por atraso. Compras por impulso nunca usadas.' },
+          { title: 'Ninguém soma isso', body: 'Porque dói. R$15 aqui, R$30 ali parece pouco. Mas no ano vira R$2.000, R$5.000... às vezes mais.' },
+          { title: 'Uma calculadora honesta', body: 'Você responde 10 perguntas rápidas. Ela mostra o total anual. E o que você poderia ter comprado com esse dinheiro.' },
+          { title: 'Quer que eu construa isso?', body: 'Comenta SIM e manda pra alguém que precisa dessa realidade 💸📩' }
+        ],
+        caption: `💡 Ideia do Dia — Calculadora do dinheiro esquecido
+
+Slide 1: Quanto você JOGOU FORA esse ano sem perceber?
+Slide 2: Ninguém soma — porque dói
+Slide 3: 10 perguntas → total anual → o que você podia ter comprado
+Slide 4: Quer que eu construa? Comenta SIM!
+
+Manda pra quem precisa dessa conta 💸📩
+
+#IdeaDoDia #Dinheiro #Finanças #Calculadora #App`
       }
     ];
 
@@ -962,9 +1152,13 @@ Uso pra resumir papers técnicos, consolidar pesquisas, e até revisar contratos
         card.className = className;
         card.onclick = () => openModal(post);
 
+        const thumbHtml = post.images.length > 0
+          ? `<img src="${post.images[0]}" alt="${post.title}">`
+          : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:linear-gradient(135deg,#1a1a2e,#16213e);">${post.placeholder || post.emoji}</div>`;
+        
         card.innerHTML = `
           <div class="timeline-thumb">
-            <img src="${post.images[0]}" alt="${post.title}">
+            ${thumbHtml}
           </div>
           <div class="timeline-info">
             <div class="timeline-date">${formatDate(post.date)} • ${post.emoji} ${post.format.toUpperCase()}</div>
@@ -980,15 +1174,29 @@ Uso pra resumir papers técnicos, consolidar pesquisas, e até revisar contratos
       const isPosted = localStorage.getItem(`posted-${post.date}`) === 'true';
       const cardClass = `post-card ${isToday ? 'today' : ''} ${isPosted ? 'posted' : ''}`;
 
-      const imagesHtml = post.images.length > 1
-        ? renderCarousel(post.images, post.date)
-        : `<div class="post-image"><img src="${post.images[0]}" alt="${post.title}"></div>`;
-
-      const downloadHtml = post.images.length > 1
-        ? post.images.map((img, i) => 
+      let imagesHtml;
+      let downloadHtml;
+      
+      if (post.images.length === 0) {
+        // Placeholder for posts without images
+        const emoji = post.placeholder || post.emoji;
+        const slidesHtml = post.slides ? `<div style="padding: 16px; display: grid; gap: 8px;">${post.slides.map((s, i) => 
+          `<div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 12px;">
+            <div style="font-size: 0.7rem; color: var(--dim); margin-bottom: 4px;">Slide ${i+1}</div>
+            <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">${s.title}</div>
+            <div style="color: var(--dim); font-size: 0.85rem;">${s.body}</div>
+          </div>`).join('')}</div>` : '';
+        imagesHtml = `<div class="post-image-placeholder">${emoji}</div>${slidesHtml}`;
+        downloadHtml = '<span class="btn" style="opacity:0.4; cursor:default;">🎨 Arte pendente</span>';
+      } else if (post.images.length > 1) {
+        imagesHtml = renderCarousel(post.images, post.date);
+        downloadHtml = post.images.map((img, i) => 
             `<a href="${img}" download class="btn">💾 Download ${i + 1}</a>`
-          ).join('')
-        : `<a href="${post.images[0]}" download class="btn">💾 Download</a>`;
+          ).join('');
+      } else {
+        imagesHtml = `<div class="post-image"><img src="${post.images[0]}" alt="${post.title}"></div>`;
+        downloadHtml = `<a href="${post.images[0]}" download class="btn">💾 Download</a>`;
+      }
 
       return `
         <div class="${cardClass}">
@@ -1002,7 +1210,7 @@ Uso pra resumir papers técnicos, consolidar pesquisas, e até revisar contratos
           ${imagesHtml}
           <div class="post-body">
             <div class="post-title">${post.title}</div>
-            <div class="post-file">📁 ${post.images[0].split('/outputs/')[1]}</div>
+            <div class="post-file">📁 ${post.images.length ? post.images[0].split('/outputs/')[1] || post.images[0] : 'arte pendente'}</div>
             <div class="caption-box">${post.caption}</div>
             <div class="actions">
               <button class="btn btn-primary" onclick="copyCaption('${post.date}')">📋 Copiar Caption</button>
