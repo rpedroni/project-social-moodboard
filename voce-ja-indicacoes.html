@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #111; padding: 40px; display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; }
+h1 { width: 100%; text-align: center; font-family: 'DM Sans', sans-serif; color: #ffd700; font-size: 32px; margin-bottom: 20px; }
+.label { width: 100%; max-width: 540px; text-align: center; font-family: 'JetBrains Mono', monospace; color: #666; font-size: 14px; margin-bottom: -30px; }
+
+.slide {
+  width: 540px;
+  height: 675px;
+  background: #0a0a0a;
+  position: relative;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.accent-bar {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #ffd700, #ff8c00, transparent);
+}
+
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255,215,0,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,215,0,0.02) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  z-index: 1;
+}
+.rp {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  color: #ffd700;
+}
+.handle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: #666;
+}
+
+.vj-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  z-index: 1;
+}
+.vj-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: #ffd700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  background: rgba(255,215,0,0.08);
+  padding: 6px 12px;
+  border: 1px solid rgba(255,215,0,0.2);
+  border-radius: 4px;
+  align-self: flex-start;
+}
+.vj-emoji { font-size: 40px; }
+.vj-hook {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 30px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+}
+.vj-hook .gold { color: #ffd700; }
+.vj-hook .dim { color: rgba(255,255,255,0.35); }
+.vj-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+}
+.vj-sub strong { color: #fff; }
+.swipe-cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,215,0,0.4);
+  letter-spacing: 2px;
+  margin-top: auto;
+  align-self: center;
+}
+
+.footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1;
+  margin-top: 8px;
+}
+.footer-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #444;
+}
+.footer-brand {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 900;
+  font-size: 12px;
+  color: #333;
+  letter-spacing: 4px;
+}
+.dots {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  margin-top: 8px;
+  z-index: 1;
+}
+.dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #333;
+}
+.dot.active { background: #ffd700; }
+</style>
+</head>
+<body>
+
+<h1>❓ Você Já...? — Indicações Perdidas no WhatsApp</h1>
+<p style="width:100%;text-align:center;font-family:'Inter',sans-serif;color:#888;font-size:16px;margin-bottom:20px;">10 variações do Slide 1 (hook) · @rpedroni</p>
+
+<!-- V1: Original -->
+<div class="label">V1 — Encanador clássico</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div>
+  <div class="top-bar"><span class="rp">RP</span><span class="handle">@rpedroni</span></div>
+  <div class="vj-content">
+    <div class="vj-badge">❓ Você Já...?</div>
+    <div class="vj-emoji">🔧</div>
+    <div class="vj-hook">Você já recebeu a indicação <span class="gold">PERFEITA</span> de um encanador no grupo do condomínio<span class="dim">...</span></div>
+    <div class="vj-sub">...e só lembrou que ela existia <strong>4 meses depois</strong>, com a pia jorrando água?</div>
+    <div class="swipe-cta">desliza pra sofrer junto →</div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni · ❓ VOCÊ JÁ</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- V2 -->
+<div class="label">V2 — Pediatra de madrugada</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div>
+  <div class="top-bar"><span class="rp">RP</span><span class="handle">@rpedroni</span></div>
+  <div class="vj-content">
+    <div class="vj-badge">❓ Você Já...?</div>
+    <div class="vj-emoji">👶</div>
+    <div class="vj-hook">Seu filho tá com <span class="gold">39° de febre</span> às 2 da manhã<span class="dim">.</span></div>
+    <div class="vj-sub">Alguém indicou um pediatra incrível no grupo das mães.<br><br>Foi <strong>semana passada</strong>. Você não salvou. Boa sorte rolando 400 mensagens.</div>
+    <div class="swipe-cta">desliza →</div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni · ❓ VOCÊ JÁ</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- V3 -->
+<div class="label">V3 — Eletricista sumido</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div>
+  <div class="top-bar"><span class="rp">RP</span><span class="handle">@rpedroni</span></div>
+  <div class="vj-content">
+    <div class="vj-badge">❓ Você Já...?</div>
+    <div class="vj-emoji">⚡</div>
+    <div class="vj-hook">Você <span class="gold">SABE</span> que alguém indicou um eletricista bom no grupo<span class="dim">.</span></div>
+    <div class="vj-sub">Você lembra que foi entre uma discussão de vaga de garagem e um áudio de 7 minutos sobre portaria.<br><br>Você <strong>nunca vai achar</strong>.</div>
+    <div class="swipe-cta">desliza →</div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni · ❓ VOCÊ JÁ</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- V4 -->
+<div class="label">V4 — A busca impossível</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div>
+  <div class="top-bar"><span class="rp">RP</span><span class="handle">@rpedroni</span></div>
+  <div class="vj-content">
+    <div class="vj-badge">❓ Você Já...?</div>
+    <div class="vj-emoji">🔍</div>
+    <div class="vj-hook">Você já digitou <span class="gold">"encanador"</span> na busca do WhatsApp<span class="dim">...</span></div>
+    <div class="vj-sub">...e achou 47 resultados, nenhum deles a indicação que você queria?<br><br>Mas encontrou 3 memes de cano estourado. <strong>Útil.</strong></div>
+    <div class="swipe-cta">desliza →</div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni · ❓ VOCÊ JÁ</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- V5 -->
+<div class="label">V5 — Pedir de novo no grupo</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div>
+  <div class="top-bar"><span class="rp">RP</span><span class="handle">@rpedroni</span></div>
+  <div class="vj-content">
+    <div class="vj-badge">❓ Você Já...?</div>
+    <div class="vj-emoji">🙋</div>
+    <div class="vj-hook">Você já pediu indicação de algo no grupo<span class="dim">...</span></div>
+    <div class="vj-sub">...e alguém respondeu:<br><br><strong>"Já indicaram aqui. Procura aí em cima."</strong><br><br>Obrigado, muito útil. 😐</div>
+    <div class="swipe-cta">desliza →</div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni · ❓ VOCÊ JÁ</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- V6 -->
+<div class="label">V6 — Diarista unicórnio</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div>
+  <div class="top-bar"><span class="rp">RP</span><span class="handle">@rpedroni</span></div>
+  <div class="vj-content">
+    <div class="vj-badge">❓ Você Já...?</div>
+    <div class="vj-emoji">🧹</div>
+    <div class="vj-hook">Uma mãe do grupo indicou uma diarista <span class="gold">MARAVILHOSA</span><span class="dim">.</span></div>
+    <div class="vj-sub">Você pensou "vou salvar depois".<br><br>"Depois" foi <strong>nunca</strong>.<br><br>Agora você precisa de uma e tá no Google rezando.</div>
+    <div class="swipe-cta">desliza →</div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni · ❓ VOCÊ JÁ</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- V7 -->
+<div class="label">V7 — O print perdido</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div>
+  <div class="top-bar"><span class="rp">RP</span><span class="handle">@rpedroni</span></div>
+  <div class="vj-content">
+    <div class="vj-badge">❓ Você Já...?</div>
+    <div class="vj-emoji">📸</div>
+    <div class="vj-hook">Você printou a indicação<span class="dim">.</span> Você foi <span class="gold">responsável</span><span class="dim">.</span></div>
+    <div class="vj-sub">O print tá em algum lugar entre 4.387 fotos do seu filho, 200 memes e aquele cardápio de pizzaria.<br><br><strong>Parabéns pelo esforço.</strong></div>
+    <div class="swipe-cta">desliza →</div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni · ❓ VOCÊ JÁ</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- V8 -->
+<div class="label">V8 — Timing cruel</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div>
+  <div class="top-bar"><span class="rp">RP</span><span class="handle">@rpedroni</span></div>
+  <div class="vj-content">
+    <div class="vj-badge">❓ Você Já...?</div>
+    <div class="vj-emoji">⏰</div>
+    <div class="vj-hook">O problema das indicações no WhatsApp<span class="dim">:</span></div>
+    <div class="vj-sub">Você recebe quando <strong>não precisa</strong>.<br><br>Não acha quando <strong>precisa</strong>.<br><br>E quando pede de novo, todo mundo indica <span class="gold" style="color:#ffd700;font-weight:700;">gente diferente</span>.</div>
+    <div class="swipe-cta">desliza →</div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni · ❓ VOCÊ JÁ</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- V9 -->
+<div class="label">V9 — O cemitério de indicações</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div>
+  <div class="top-bar"><span class="rp">RP</span><span class="handle">@rpedroni</span></div>
+  <div class="vj-content">
+    <div class="vj-badge">❓ Você Já...?</div>
+    <div class="vj-emoji">🪦</div>
+    <div class="vj-hook">Seu grupo de WhatsApp é um <span class="gold">cemitério</span> de indicações incríveis<span class="dim">.</span></div>
+    <div class="vj-sub">Encanador, eletricista, pediatra, diarista, personal, mecânico, dentista...<br><br>Tudo enterrado entre <strong>figurinha de bom dia</strong> e corrente do bem.</div>
+    <div class="swipe-cta">desliza →</div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni · ❓ VOCÊ JÁ</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- V10 -->
+<div class="label">V10 — Estatística absurda</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div>
+  <div class="top-bar"><span class="rp">RP</span><span class="handle">@rpedroni</span></div>
+  <div class="vj-content">
+    <div class="vj-badge">❓ Você Já...?</div>
+    <div class="vj-emoji">📊</div>
+    <div class="vj-hook">Nos seus grupos de WhatsApp tem indicação de <span class="gold">TUDO</span><span class="dim">.</span></div>
+    <div class="vj-sub">Encanador ✅ Pediatra ✅ Eletricista ✅ Diarista ✅ Dentista ✅ Personal ✅ Mecânico ✅ Pintor ✅<br><br>Quantas você consegue achar agora?<br><strong>Zero.</strong></div>
+    <div class="swipe-cta">desliza →</div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni · ❓ VOCÊ JÁ</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+</body>
+</html>
