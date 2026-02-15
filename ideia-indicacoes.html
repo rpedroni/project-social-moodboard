@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #111; padding: 40px; display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; }
+h1 { width: 100%; text-align: center; font-family: 'DM Sans', sans-serif; color: #ffd700; font-size: 32px; margin-bottom: 0; }
+.subtitle { width: 100%; text-align: center; font-family: 'Inter', sans-serif; color: #888; font-size: 16px; margin-bottom: 20px; }
+.label { width: 100%; max-width: 540px; text-align: center; font-family: 'JetBrains Mono', monospace; color: #666; font-size: 14px; margin-bottom: -30px; }
+
+.slide {
+  width: 540px;
+  height: 675px;
+  background: #0a0a0a;
+  position: relative;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.accent-bar {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(to bottom, #ffd700, #ff8c00, transparent);
+}
+.grid-bg {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,215,0,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,215,0,0.02) 1px, transparent 1px);
+  background-size: 20px 20px; pointer-events: none;
+}
+.watermark {
+  position: absolute; top: 35%; right: 20px; transform: translateY(-50%);
+  font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 120px;
+  color: rgba(255,215,0,0.04); pointer-events: none; z-index: 0;
+}
+
+.top-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px; z-index: 1;
+}
+.brand-row { display: flex; align-items: center; gap: 8px; }
+.rp { font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 20px; color: #ffd700; }
+.handle { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #666; }
+
+.badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+  color: #ffd700; text-transform: uppercase; letter-spacing: 3px;
+  background: rgba(255,215,0,0.08); padding: 6px 12px;
+  border: 1px solid rgba(255,215,0,0.2); border-radius: 4px; align-self: flex-start;
+}
+
+.content {
+  flex: 1; display: flex; flex-direction: column; justify-content: center;
+  gap: 16px; z-index: 1;
+}
+
+.footer-bar {
+  display: flex; align-items: center; justify-content: space-between; z-index: 1; margin-top: 8px;
+}
+.footer-text { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #444; }
+.footer-brand { font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 12px; color: #333; letter-spacing: 4px; }
+.dots { display: flex; gap: 4px; justify-content: center; margin-top: 8px; z-index: 1; }
+.dot { width: 5px; height: 5px; border-radius: 50%; background: #333; }
+.dot.active { background: #ffd700; }
+
+.hook { font-family: 'DM Sans', sans-serif; font-size: 30px; font-weight: 900; color: #fff; line-height: 1.2; }
+.hook .gold { color: #ffd700; }
+.hook .dim { color: rgba(255,255,255,0.35); }
+.sub { font-family: 'Inter', sans-serif; font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+.sub strong { color: #fff; }
+.swipe { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,215,0,0.4); letter-spacing: 2px; margin-top: auto; align-self: center; }
+
+.block-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500;
+  letter-spacing: 3px; margin-bottom: 10px;
+}
+.problem-box {
+  background: rgba(255,60,60,0.06); border-left: 3px solid #ff4444;
+  padding: 16px 20px; border-radius: 0 6px 6px 0;
+}
+.problem-text { font-family: 'Inter', sans-serif; font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+.solution-box {
+  background: rgba(255,215,0,0.06); border-left: 3px solid #ffd700;
+  padding: 16px 20px; border-radius: 0 6px 6px 0;
+}
+.solution-text { font-family: 'Inter', sans-serif; font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+.step {
+  display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px;
+}
+.step-num {
+  min-width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(255,215,0,0.12); color: #ffd700;
+  font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.step-text { font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+.meta-row { display: flex; gap: 24px; margin-top: 16px; }
+.meta-box { background: rgba(255,255,255,0.03); padding: 12px 16px; border-radius: 6px; flex: 1; }
+.meta-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #666; letter-spacing: 2px; margin-bottom: 6px; }
+.meta-value { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #ffd700; font-weight: 700; }
+.diff-dots { display: flex; gap: 4px; }
+.dd { width: 8px; height: 8px; border-radius: 50%; background: #222; }
+.dd.on { background: #ffd700; }
+
+.pill { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #ffd700; background: rgba(255,215,0,0.1); padding: 4px 10px; border-radius: 12px; align-self: flex-start; }
+
+.cta-box {
+  background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.2);
+  padding: 16px 24px; border-radius: 8px; text-align: center;
+  font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 700; color: #ffd700;
+}
+.cta-secondary { font-family: 'Inter', sans-serif; font-size: 12px; color: #555; text-align: center; }
+</style>
+</head>
+<body>
+
+<h1>💡 Ideia do Dia — Indicações que Somem no WhatsApp</h1>
+<p class="subtitle">Carrossel completo · 4 slides · @rpedroni</p>
+
+<!-- SLIDE 1: HOOK -->
+<div class="label">Slide 1 — Hook</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div><div class="watermark">#</div>
+  <div class="top-bar"><div class="brand-row"><span class="rp">RP</span></div><span class="handle">@rpedroni</span></div>
+  <div class="content">
+    <div class="badge">💡 IDEIA DO DIA</div>
+    <div style="font-size:40px;">📱</div>
+    <div class="hook">Seu grupo de WhatsApp é um <span class="gold">cemitério</span> de indicações incríveis<span class="dim">.</span></div>
+    <div class="sub">Encanador, pediatra, diarista, eletricista...<br><br>Tudo enterrado entre <strong>figurinha de bom dia</strong> e corrente do bem.</div>
+    <div class="swipe">desliza →</div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- SLIDE 2: PROBLEMA -->
+<div class="label">Slide 2 — O Problema</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div><div class="watermark">#</div>
+  <div class="top-bar"><div class="brand-row"><span class="rp">RP</span></div><span class="handle">@rpedroni</span></div>
+  <div class="content">
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div>
+        <div class="block-label" style="color:#ff4444;">❌ O QUE ACONTECE HOJE</div>
+        <div class="problem-box">
+          <div class="problem-text">
+            Alguém indica um profissional <strong style="color:#fff">incrível</strong> no grupo.<br><br>
+            Você pensa: "vou salvar depois".<br><br>
+            "Depois" = <strong style="color:#ff6666">nunca</strong>.<br><br>
+            3 meses depois, pia jorrando água, você rola 800 mensagens entre figurinhas e áudios de 7 minutos.<br><br>
+            Pede de novo. Resposta: <strong style="color:#fff">"já indicaram, procura aí em cima"</strong> 😐
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="block-label" style="color:#ffd700;">💡 O REAL PROBLEMA</div>
+        <div class="solution-box">
+          <div class="solution-text">
+            Indicação tem <strong style="color:#ffd700">timing errado</strong>.<br>
+            Você recebe quando não precisa.<br>
+            Não acha quando precisa.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- SLIDE 3: A IDEIA -->
+<div class="label">Slide 3 — Como Funcionaria</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div><div class="watermark">#</div>
+  <div class="top-bar"><div class="brand-row"><span class="rp">RP</span></div><span class="handle">@rpedroni</span></div>
+  <div class="content">
+    <div class="badge">💡 A IDEIA</div>
+    <div class="hook" style="font-size:22px;margin-bottom:8px;">Um bot no WhatsApp que <span class="gold">salva automaticamente</span> toda indicação do grupo.</div>
+    <div class="pill">direto no whats, sem app novo</div>
+    <div style="margin-top:8px;">
+      <div class="step"><div class="step-num">1</div><div class="step-text">Bot entra no grupo e <strong style="color:#fff">monitora</strong> mensagens em silêncio</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Detecta indicações com IA — nome, profissão, contato, quem indicou</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Organiza tudo por <strong style="color:#ffd700">categoria</strong>: encanador, pediatra, diarista...</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">Quando precisar: manda <strong style="color:#fff">"preciso de eletricista"</strong> e ele responde na hora</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text">Mostra quem indicou e quando — <strong style="color:#ffd700">confiança real</strong></div></div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-box">
+        <div class="meta-label">DIFICULDADE</div>
+        <div class="diff-dots"><div class="dd on"></div><div class="dd on"></div><div class="dd on"></div><div class="dd"></div><div class="dd"></div></div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">MERCADO</div>
+        <div class="meta-value">Todo grupo de WhatsApp</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot active"></div><div class="dot"></div></div>
+</div>
+
+<!-- SLIDE 4: CTA -->
+<div class="label">Slide 4 — CTA</div>
+<div class="slide">
+  <div class="accent-bar"></div><div class="grid-bg"></div><div class="watermark">#</div>
+  <div class="top-bar"><div class="brand-row"><span class="rp">RP</span></div><span class="handle">@rpedroni</span></div>
+  <div class="content" style="align-items:center;text-align:center;">
+    <div style="font-size:50px;">📱🔧</div>
+    <div class="hook" style="text-align:center;font-size:26px;">
+      Nunca mais perder indicação<br>no <span class="gold">WhatsApp</span>.
+    </div>
+    <div class="sub" style="text-align:center;font-size:14px;margin:8px 0 16px;">
+      Chega de rolar 800 mensagens<br>procurando aquele encanador que indicaram em março.
+    </div>
+    <div style="width:60px;height:3px;background:#ffd700;margin:0 auto 16px;"></div>
+    <div class="sub" style="text-align:left;display:inline-block;font-size:15px;line-height:2;">
+      ↗️ manda pra quem vive pedindo indicação no grupo<br>
+      💾 salva pra quando a pia estourar<br>
+      💬 me conta: como você "organiza" indicações hoje?
+    </div>
+    <div style="height:16px;"></div>
+    <div class="cta-box">salva 📌 e compartilha</div>
+    <div style="height:8px;"></div>
+    <div class="cta-secondary">segue @rpedroni pra mais ideias todo dia 💡</div>
+  </div>
+  <div class="footer-bar"><span class="footer-text">@rpedroni</span><span class="footer-brand">RPEDRONI</span></div>
+  <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot active"></div></div>
+</div>
+
+</body>
+</html>
